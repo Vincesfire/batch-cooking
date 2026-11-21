@@ -1,1701 +1,1677 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Batch Cooking Bureau — 15 Recettes & Planning</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-                    },
-                    colors: {
-                        cream: '#FAF7F2',
-                        sand: '#F2ECE1',
-                        slateDark: '#1E293B',
-                        terracotta: '#D96B43',
-                        terracottaDark: '#B8522E',
-                        sage: '#4A7C59',
-                        sageLight: '#E8F0EA',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            background-color: #FAF7F2;
-            color: #1E293B;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        .checkbox-custom:checked + span {
-            text-decoration: line-through;
-            color: #94A3B8;
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        /* Découpe précise 5x3 sur l'image photographique des 15 barquettes */
-        .sprite-viewport {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #2b211a;
-        }
-        .sprite-crop-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 500%;
-            height: 300%;
-            max-width: none;
-            object-fit: cover;
-            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-            will-change: transform;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Batch Cooking Bureau — 15 Plats &amp; Photos Statiques</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --surface: #ffffff;
+      --surface-alt: #f0ece3;
+      --ink: #1e2421;
+      --muted: #5a6560;
+      --accent: #c85a32;
+      --accent-dark: #9f4220;
+      --accent-soft: #f9ebe5;
+      --green: #2d6a4f;
+      --green-soft: #e6f2ec;
+      --gold: #b07d2b;
+      --gold-soft: #fbf3e4;
+      --border: #e2ddd2;
+      --shadow: 0 8px 24px rgba(30, 36, 33, 0.06);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      background: linear-gradient(135deg, #232b27 0%, #313d37 100%);
+      color: #ffffff;
+      padding: 2.25rem 1.5rem 2.75rem;
+      border-bottom: 4px solid var(--accent);
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255, 255, 255, 0.12);
+      color: #f7d9ce;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(1.65rem, 3vw, 2.35rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #cfd8d3;
+      max-width: 680px;
+      font-size: 0.98rem;
+    }
+
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 0.85rem;
+      margin-top: 1.6rem;
+    }
+
+    .kpi-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+    }
+
+    .kpi-card strong {
+      display: block;
+      font-size: 1.18rem;
+      color: #ffffff;
+    }
+
+    .kpi-card span {
+      font-size: 0.82rem;
+      color: #c3cec8;
+    }
+
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(246, 244, 239, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+    }
+
+    .nav-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .tab-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.55rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .week-filter {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .pill-filter {
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 0.42rem 0.85rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .pill-filter.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #ffffff;
+    }
+
+    main {
+      padding: 1.75rem 1.5rem 4rem;
+    }
+
+    .section-panel {
+      display: none;
+    }
+
+    .section-panel.active {
+      display: block;
+    }
+
+    .info-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .info-banner p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      max-width: 780px;
+    }
+
+    .info-banner strong {
+      color: var(--ink);
+    }
+
+    .recipes-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .recipe-row-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .recipe-row-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(30, 36, 33, 0.1);
+    }
+
+    .photo-column {
+      position: relative;
+      background: #232825;
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .photo-column img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-top-badges {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0.85rem;
+      gap: 0.5rem;
+      background: linear-gradient(180deg, rgba(20, 24, 22, 0.65) 0%, rgba(20, 24, 22, 0) 100%);
+    }
+
+    .week-tag {
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--ink);
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .kcal-tag {
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .photo-bottom-caption {
+      position: relative;
+      z-index: 2;
+      padding: 0.75rem 0.9rem;
+      background: linear-gradient(0deg, rgba(20, 24, 22, 0.82) 0%, rgba(20, 24, 22, 0) 100%);
+      color: #f3f5f4;
+      font-size: 0.78rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .recipe-body {
+      padding: 1.35rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .recipe-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .recipe-title {
+      font-size: 1.24rem;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+
+    .recipe-sub {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    .macro-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .macro-pill {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.28rem 0.65rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .macro-pill strong {
+      color: var(--accent-dark);
+    }
+
+    .recipe-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 1.2rem;
+      padding-top: 0.4rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .sub-heading {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .ing-list {
+      list-style: none;
+      font-size: 0.88rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .ing-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding-bottom: 0.22rem;
+      border-bottom: 1px dashed #ebe6dc;
+    }
+
+    .ing-list li span:last-child {
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .steps-list {
+      padding-left: 1.15rem;
+      font-size: 0.88rem;
+      color: #2f3733;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .recipe-footer-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--green-soft);
+      border: 1px solid #cce3d7;
+      border-radius: 10px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.84rem;
+      color: #1f4d39;
+    }
+
+    .btn-modal {
+      background: var(--ink);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-modal:hover {
+      background: var(--accent);
+    }
+
+    /* Shopping List */
+    .shopping-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.35rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--ink);
+    }
+
+    .shopping-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .aisle-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .aisle-card h3 {
+      font-size: 1.02rem;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--accent-soft);
+      color: var(--ink);
+    }
+
+    .shop-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid #f2efe8;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .shop-item input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--green);
+      cursor: pointer;
+    }
+
+    .shop-item.checked span {
+      text-decoration: line-through;
+      color: #96a09b;
+    }
+
+    .shop-qty {
+      margin-left: auto;
+      font-weight: 700;
+      font-size: 0.84rem;
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+    }
+
+    /* Plan du dimanche */
+    .plan-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .timeline-card, .protocol-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      box-shadow: var(--shadow);
+    }
+
+    .timeline-step {
+      display: grid;
+      grid-template-columns: 95px 1fr;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-step:last-child {
+      border-bottom: none;
+    }
+
+    .time-badge {
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-weight: 800;
+      font-size: 0.84rem;
+      padding: 0.35rem 0.6rem;
+      border-radius: 8px;
+      text-align: center;
+      height: fit-content;
+    }
+
+    .protocol-box {
+      background: var(--gold-soft);
+      border: 1px solid #edd9b4;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .protocol-box h4 {
+      color: #7c5416;
+      margin-bottom: 0.4rem;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 24, 22, 0.68);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      z-index: 60;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--surface);
+      border-radius: 18px;
+      max-width: 760px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+    }
+
+    .modal-hero {
+      position: relative;
+      height: 250px;
+      background: #232825;
+    }
+
+    .modal-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255, 255, 255, 0.92);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .modal-content {
+      padding: 1.5rem;
+    }
+
+    .portion-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      background: var(--surface-alt);
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      margin: 1rem 0;
+    }
+
+    .portion-btns {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .portion-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .portion-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    @media (max-width: 900px) {
+      .recipe-row-card {
+        grid-template-columns: 1fr;
+      }
+      .photo-column {
+        min-height: 230px;
+      }
+      .recipe-details-grid, .plan-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-terracotta selection:text-white">
+<body>
 
-    <!-- ==================== EN-TÊTE & NAVIGATION ==================== -->
-    <header class="bg-slateDark text-white shadow-lg">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
-                <div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-terracotta/20 text-terracotta border border-terracotta/30 text-xs font-semibold uppercase tracking-wider mb-3">
-                        <span>❄️ Spécial Satiété • Congélation & Réchauffage Bureau</span>
-                    </div>
-                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-cream">
-                        Batch Cooking Bureau <span class="text-terracotta">— 15 Recettes</span>
-                    </h1>
-                    <p class="text-slate-300 text-sm sm:text-base mt-2 max-w-2xl leading-relaxed">
-                        15 plats généreux en féculents et viandes (535 à 595 kcal). Cuisinez vos 5 barquettes le dimanche, sortez-en une le matin en partant, et réchauffez-la au bureau à midi !
-                    </p>
-                </div>
-
-                <!-- Indicateurs clés -->
-                <div class="flex flex-wrap sm:flex-nowrap gap-3 bg-slate-800/90 p-3.5 rounded-2xl border border-slate-700/80 shrink-0 self-start lg:self-center">
-                    <div class="text-center px-3 border-r border-slate-700">
-                        <div class="text-xl font-bold text-terracotta">15</div>
-                        <div class="text-[11px] uppercase tracking-wider text-slate-400">Barquettes</div>
-                    </div>
-                    <div class="text-center px-3 border-r border-slate-700">
-                        <div class="text-xl font-bold text-emerald-400">535–595</div>
-                        <div class="text-[11px] uppercase tracking-wider text-slate-400">kcal / plat</div>
-                    </div>
-                    <div class="text-center px-3">
-                        <div class="text-xl font-bold text-amber-400">1h35</div>
-                        <div class="text-[11px] uppercase tracking-wider text-slate-400">le Dimanche</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Onglets de navigation principaux -->
-            <nav class="flex gap-2 sm:gap-3 mt-6 border-t border-slate-700/70 pt-5 overflow-x-auto no-scrollbar" aria-label="Navigation principale">
-                <button type="button" onclick="switchMainTab('recipes')" id="tab-recipes" class="main-tab-btn flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-sm transition-all bg-terracotta text-white shadow-sm shrink-0">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                    Mes 15 Recettes
-                </button>
-                <button type="button" onclick="switchMainTab('shopping')" id="tab-shopping" class="main-tab-btn flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-sm transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white shrink-0">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                    Liste de Courses
-                </button>
-                <button type="button" onclick="switchMainTab('plan')" id="tab-plan" class="main-tab-btn flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-semibold text-sm transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white shrink-0">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    Plan Dimanche & Décongélation
-                </button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- ==================== CONTENU PRINCIPAL ==================== -->
-    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
-
-        <!-- ==================== ONGLET 1 : MES 15 RECETTES ==================== -->
-        <section id="view-recipes" class="space-y-6">
-            <!-- Barre de filtres & portions globales -->
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-2xl shadow-sm border border-stone-200/80">
-                <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 md:pb-0">
-                    <button type="button" onclick="filterRecipes('all')" data-week="all" class="week-filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slateDark text-white transition-all shrink-0">
-                        Toutes les 15 recettes
-                    </button>
-                    <button type="button" onclick="filterRecipes(1)" data-week="1" class="week-filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-sand text-slateDark hover:bg-stone-300/70 transition-all shrink-0">
-                        Semaine 1 (5)
-                    </button>
-                    <button type="button" onclick="filterRecipes(2)" data-week="2" class="week-filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-sand text-slateDark hover:bg-stone-300/70 transition-all shrink-0">
-                        Semaine 2 (5)
-                    </button>
-                    <button type="button" onclick="filterRecipes(3)" data-week="3" class="week-filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-sand text-slateDark hover:bg-stone-300/70 transition-all shrink-0">
-                        Semaine 3 (5)
-                    </button>
-                </div>
-
-                <!-- Sélecteur de portions global -->
-                <div class="flex items-center justify-between sm:justify-end gap-3 bg-cream px-3.5 py-2 rounded-xl border border-stone-200/80">
-                    <span class="text-xs font-semibold text-slate-600">Portions affichées :</span>
-                    <div class="inline-flex items-center gap-1.5">
-                        <button type="button" onclick="setGlobalPortions(-1)" class="w-7 h-7 rounded-lg bg-white border border-stone-300 font-bold text-slateDark hover:bg-stone-100 text-sm">-</button>
-                        <span id="global-portions-display" class="text-xs font-extrabold text-slateDark w-24 text-center">1 barquette</span>
-                        <button type="button" onclick="setGlobalPortions(1)" class="w-7 h-7 rounded-lg bg-white border border-stone-300 font-bold text-slateDark hover:bg-stone-100 text-sm">+</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Liste des panneaux horizontaux 2 colonnes -->
-            <div id="recipes-list" class="space-y-6">
-                <!-- Panneaux injectés immédiatement au chargement -->
-            </div>
-        </section>
-
-        <!-- ==================== ONGLET 2 : LISTE DE COURSES ==================== -->
-        <section id="view-shopping" class="hidden space-y-6">
-            <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-stone-200/80">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-100 pb-5">
-                    <div>
-                        <h2 class="text-xl font-bold text-slateDark">Liste de Courses Hebdomadaire</h2>
-                        <p class="text-sm text-slate-500 mt-1">Quantités exactes pour préparer les <strong>5 barquettes</strong> de la semaine sélectionnée (base 1 portion par plat).</p>
-                    </div>
-                    <div class="inline-flex rounded-xl bg-sand p-1 self-start sm:self-auto">
-                        <button type="button" onclick="selectShoppingWeek(1)" id="shop-week-1" class="shop-week-btn px-3.5 py-1.5 rounded-lg text-sm font-semibold bg-terracotta text-white shadow-sm transition-all">Sem. 1</button>
-                        <button type="button" onclick="selectShoppingWeek(2)" id="shop-week-2" class="shop-week-btn px-3.5 py-1.5 rounded-lg text-sm font-semibold text-slateDark hover:bg-white/60 transition-all">Sem. 2</button>
-                        <button type="button" onclick="selectShoppingWeek(3)" id="shop-week-3" class="shop-week-btn px-3.5 py-1.5 rounded-lg text-sm font-semibold text-slateDark hover:bg-white/60 transition-all">Sem. 3</button>
-                    </div>
-                </div>
-
-                <!-- Barre d'actions -->
-                <div class="flex flex-wrap items-center justify-between gap-3 py-4 border-b border-stone-100">
-                    <div class="text-sm font-medium text-sage flex items-center gap-2">
-                        <span class="px-2.5 py-1 rounded-lg bg-sageLight font-bold" id="shopping-count">0 / 0 cochés</span>
-                        <span class="text-slate-500 hidden sm:inline">Vos cases cochées sont enregistrées automatiquement.</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button type="button" onclick="copyShoppingList()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-sand hover:bg-stone-300/70 text-slateDark transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-                            Copier la liste
-                        </button>
-                        <button type="button" onclick="resetShoppingList()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-red-50 hover:bg-red-100 text-red-700 transition-colors">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                            Tout décocher
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Rayons de courses -->
-                <div id="shopping-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                    <!-- Rayons injectés via JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- ==================== ONGLET 3 : PLAN DIMANCHE & DÉCONGÉLATION ==================== -->
-        <section id="view-plan" class="hidden space-y-6">
-            <!-- Protocole Congélation & Décongélation Naturelle -->
-            <div class="bg-gradient-to-r from-slateDark to-slate-800 text-white p-5 sm:p-6 rounded-2xl shadow-sm">
-                <h3 class="text-lg font-bold flex items-center gap-2 text-amber-300">
-                    <span>🧊 Protocole Congélation & Décongélation Naturelle du Matin</span>
-                </h3>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 text-sm">
-                    <div class="bg-white/10 p-4 rounded-xl border border-white/10">
-                        <div class="font-bold text-cream mb-1">1. Dimanche (Mise en boîte)</div>
-                        <p class="text-slate-300 text-xs leading-relaxed">Laissez tiédir les 5 barquettes 25 à 30 minutes à température ambiante avant de clipser les couvercles et de les placer au congélateur (-18°C).</p>
-                    </div>
-                    <div class="bg-white/10 p-4 rounded-xl border border-white/10">
-                        <div class="font-bold text-cream mb-1">2. Matin (7h30 — Départ bureau)</div>
-                        <p class="text-slate-300 text-xs leading-relaxed">Sortez 1 barquette directement du congélateur et glissez-la dans votre sac. Elle décongèle tranquillement toute seule durant la matinée avant le déjeuner.</p>
-                    </div>
-                    <div class="bg-white/10 p-4 rounded-xl border border-white/10">
-                        <div class="font-bold text-cream mb-1">3. Midi au bureau (12h30)</div>
-                        <p class="text-slate-300 text-xs leading-relaxed">Ajoutez 1 cuillère à soupe d'eau sur les féculents, posez le couvercle sans le clipser et réchauffez <strong>2 min 30 à 3 min</strong> au micro-ondes (750W).</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Déroulé Chrono du Dimanche -->
-            <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-stone-200/80">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-100 pb-5">
-                    <div>
-                        <h2 class="text-xl font-bold text-slateDark">Déroulé Chrono du Dimanche (~1h35)</h2>
-                        <p class="text-sm text-slate-500 mt-1">Organisation parallèle pour cuisiner vos 5 barquettes rapidement et avec un minimum de vaisselle.</p>
-                    </div>
-                    <div class="inline-flex rounded-xl bg-sand p-1 self-start sm:self-auto">
-                        <button type="button" onclick="selectPlanWeek(1)" id="plan-week-1" class="plan-week-btn px-3.5 py-1.5 rounded-lg text-sm font-semibold bg-terracotta text-white shadow-sm transition-all">Sem. 1</button>
-                        <button type="button" onclick="selectPlanWeek(2)" id="plan-week-2" class="plan-week-btn px-3.5 py-1.5 rounded-lg text-sm font-semibold text-slateDark hover:bg-white/60 transition-all">Sem. 2</button>
-                        <button type="button" onclick="selectPlanWeek(3)" id="plan-week-3" class="plan-week-btn px-3.5 py-1.5 rounded-lg text-sm font-semibold text-slateDark hover:bg-white/60 transition-all">Sem. 3</button>
-                    </div>
-                </div>
-
-                <!-- Résumé des 5 plats -->
-                <div id="plan-week-dishes" class="flex flex-wrap gap-2 mt-4"></div>
-
-                <!-- Timeline -->
-                <div id="plan-timeline" class="mt-6 space-y-5 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-terracotta before:via-stone-300 before:to-sage">
-                    <!-- Étapes injectées via JS -->
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- ==================== MODALE FICHE RECETTE DÉTAILLÉE ==================== -->
-    <div id="recipe-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-slateDark/75 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeModalOnBackdrop(event)">
-        <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden border border-stone-200 my-6 transform transition-all" onclick="event.stopPropagation()">
-            <div class="grid grid-cols-1 md:grid-cols-12">
-                <!-- Colonne gauche : Photographie de la barquette -->
-                <div class="md:col-span-5 relative min-h-[260px] md:min-h-full bg-stone-900" id="modal-photo-container">
-                    <!-- Image injectée par JS -->
-                </div>
-
-                <!-- Colonne droite : Fiche complète -->
-                <div class="md:col-span-7 p-5 sm:p-7 space-y-5 max-h-[85vh] overflow-y-auto">
-                    <div class="flex items-start justify-between gap-3">
-                        <div>
-                            <span id="modal-week-badge" class="inline-block px-2.5 py-0.5 rounded-full bg-sand text-slateDark text-xs font-bold mb-1.5"></span>
-                            <h2 id="modal-title" class="text-xl sm:text-2xl font-extrabold text-slateDark leading-tight"></h2>
-                        </div>
-                        <button type="button" onclick="closeModal()" aria-label="Fermer" class="w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 text-slateDark flex items-center justify-center shrink-0 transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                        </button>
-                    </div>
-
-                    <p id="modal-subtitle" class="text-slate-600 text-sm leading-relaxed"></p>
-
-                    <!-- Macros -->
-                    <div class="grid grid-cols-4 gap-2 bg-cream p-3 rounded-2xl border border-stone-200/70 text-center">
-                        <div>
-                            <div class="text-[11px] text-slate-500 font-medium">Énergie total</div>
-                            <div id="modal-macro-kcal" class="text-base font-extrabold text-terracotta"></div>
-                        </div>
-                        <div class="border-l border-stone-200">
-                            <div class="text-[11px] text-slate-500 font-medium">Protéines</div>
-                            <div id="modal-macro-p" class="text-base font-extrabold text-slateDark"></div>
-                        </div>
-                        <div class="border-l border-stone-200">
-                            <div class="text-[11px] text-slate-500 font-medium">Glucides</div>
-                            <div id="modal-macro-g" class="text-base font-extrabold text-slateDark"></div>
-                        </div>
-                        <div class="border-l border-stone-200">
-                            <div class="text-[11px] text-slate-500 font-medium">Lipides</div>
-                            <div id="modal-macro-l" class="text-base font-extrabold text-slateDark"></div>
-                        </div>
-                    </div>
-
-                    <!-- Multiplicateur de portions -->
-                    <div class="flex items-center justify-between bg-sand/70 px-4 py-2.5 rounded-xl">
-                        <span class="text-xs sm:text-sm font-semibold text-slateDark">Calculateur de portions :</span>
-                        <div class="inline-flex items-center gap-2">
-                            <button type="button" onclick="changeModalPortions(-1)" class="w-8 h-8 rounded-lg bg-white border border-stone-300 font-bold text-slateDark hover:bg-stone-100">-</button>
-                            <span id="modal-portions-label" class="text-xs sm:text-sm font-extrabold w-24 text-center">1 barquette</span>
-                            <button type="button" onclick="changeModalPortions(1)" class="w-8 h-8 rounded-lg bg-white border border-stone-300 font-bold text-slateDark hover:bg-stone-100">+</button>
-                        </div>
-                    </div>
-
-                    <!-- Ingrédients -->
-                    <div class="bg-stone-50 p-4 rounded-2xl border border-stone-200/70">
-                        <h3 class="font-bold text-xs uppercase tracking-wider text-slateDark mb-2.5">🛒 Ingrédients calibrés</h3>
-                        <ul id="modal-ingredients" class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-xs sm:text-sm text-slate-700"></ul>
-                    </div>
-
-                    <!-- Étapes -->
-                    <div>
-                        <h3 class="font-bold text-xs uppercase tracking-wider text-slateDark mb-2.5">👨‍🍳 Étapes de préparation</h3>
-                        <ol id="modal-steps" class="space-y-2 text-xs sm:text-sm text-slate-700 list-decimal list-inside"></ol>
-                    </div>
-
-                    <!-- Astuce micro-ondes -->
-                    <div class="bg-sageLight p-3.5 rounded-xl border border-sage/20">
-                        <div class="text-xs font-bold uppercase tracking-wider text-sage mb-1">💡 Astuce Congélation & Réchauffage Bureau</div>
-                        <p id="modal-tip" class="text-xs sm:text-sm text-slate-700 leading-relaxed"></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<header>
+  <div class="container">
+    <div class="hero-top">
+      <div>
+        <div class="badge-pill">🍱 Batch Cooking Bureau • 15 Recettes • Féculents + Viande</div>
+        <h1>Mes 15 Plats du Midi Prêts à Congeler</h1>
+        <p class="subtitle">
+          Des plats rassasiants calibrés entre <strong>535 et 595 kcal</strong>, riches en féculents et en viande,
+          conçus pour être cuisinés le dimanche, congelés en barquettes et décongelés naturellement le matin avant le déjeuner.
+        </p>
+      </div>
     </div>
-
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slateDark text-white px-4 py-3 rounded-xl shadow-xl text-sm font-medium flex items-center gap-2 pointer-events-none">
-        <span class="text-emerald-400">✓</span>
-        <span id="toast-msg">Action effectuée</span>
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <strong>15 Plats / 3 Semaines</strong>
+        <span>5 barquettes par dimanche</span>
+      </div>
+      <div class="kpi-card">
+        <strong>535 – 595 kcal</strong>
+        <span>Rassasiant sans coup de barre</span>
+      </div>
+      <div class="kpi-card">
+        <strong>35 à 44 g Protéines</strong>
+        <span>Une viande dans chaque plat</span>
+      </div>
+      <div class="kpi-card">
+        <strong>100 % Congelable</strong>
+        <span>Sortie congélateur le matin à 7h30</span>
+      </div>
     </div>
+  </div>
+</header>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-stone-200 mt-12 py-6 text-center text-xs text-slate-500">
-        <p>Batch Cooking Bureau — 15 Plats & Planning • Calibrés entre 535 et 595 kcal pour une satiété durable au travail.</p>
-    </footer>
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="recipes">🍽️ Les 15 Recettes &amp; Photos</button>
+      <button class="tab-btn" data-tab="shopping">🛒 Liste de Courses</button>
+      <button class="tab-btn" data-tab="plan">⏱️ Plan du Dimanche &amp; Décongélation</button>
+    </div>
+    <div class="week-filter" id="weekFilterBar">
+      <button class="pill-filter active" data-week="all">Toutes (15)</button>
+      <button class="pill-filter" data-week="1">Semaine 1 (1–5)</button>
+      <button class="pill-filter" data-week="2">Semaine 2 (6–10)</button>
+      <button class="pill-filter" data-week="3">Semaine 3 (11–15)</button>
+    </div>
+  </div>
+</nav>
 
-    <script>
-        // ==================== IMAGE PHOTOGRAPHIQUE STATIQUE 5x3 ====================
-        const SPRITE_IMAGE_SRC = "watermarked_img_17335986442964618476.jpg";
+<main class="container">
+  <!-- ONGLET 1 : RECETTES -->
+  <section id="tab-recipes" class="section-panel active">
+    <div class="info-banner">
+      <p>
+        <strong>Visuels statiques intégrés :</strong> Chaque barquette est illustrée directement à gauche de sa fiche recette
+        (dosages indiqués pour <strong>1 barquette individuelle</strong>). Cliquez sur <em>« Fiche &amp; Portions »</em> pour calculer vos quantités jusqu'à 6 barquettes.
+      </p>
+    </div>
+    <div class="recipes-stack" id="recipesContainer"></div>
+  </section>
 
-        // ==================== DONNÉES : LES 15 RECETTES ALIGNÉES SUR LA GRILLE 5x3 ====================
-        const RECIPES = [
-            // --- SEMAINE 1 (RANGÉE 0) ---
-            {
-                id: 1,
-                week: 1,
-                row: 0,
-                col: 0,
-                title: "Spaghetti bolognaise maison",
-                subtitle: "Spaghetti généreux nappés d'une sauce bolognaise maison au bœuf 5% mijotée au basilic et parmesan râpé.",
-                prepTime: "25 min",
-                kcal: 560,
-                macros: { p: 36, g: 72, l: 14 },
-                ingredients: [
-                    { name: "Spaghetti (poids cru)", amount: 85, unit: "g" },
-                    { name: "Bœuf haché 5% MG", amount: 130, unit: "g" },
-                    { name: "Coulis de tomate épais", amount: 120, unit: "g" },
-                    { name: "Oignon haché", amount: 25, unit: "g" },
-                    { name: "Huile d'olive", amount: 1, unit: "c.à.c" },
-                    { name: "Parmesan râpé & basilic", amount: 10, unit: "g" }
-                ],
-                steps: [
-                    "Cuisez les spaghetti 'al dente' (1 min de moins que le temps indiqué) pour qu'ils gardent leur tenue après décongélation.",
-                    "Faites revenir l'oignon et le bœuf haché dans l'huile d'olive 5 min en émiettant bien la viande.",
-                    "Ajoutez le coulis de tomate, sel, poivre et basilic, puis laissez mijoter 8 min à feu doux.",
-                    "Déposez les spaghetti dans la barquette, nappez de sauce bolognaise et parsemez de parmesan."
-                ],
-                tip: "Ajoutez 1 cuillère à soupe d'eau sur les pâtes avant de réchauffer 2 min 30 au micro-ondes pour une sauce bien liée."
-            },
-            {
-                id: 2,
-                week: 1,
-                row: 0,
-                col: 1,
-                title: "Cuisse de poulet rôti, pommes de terre & carottes",
-                subtitle: "Cuisse de poulet dorée au four, accompagnée de pommes de terre grenailles rôties et carottes fondantes au jus.",
-                prepTime: "35 min",
-                kcal: 550,
-                macros: { p: 38, g: 52, l: 20 },
-                ingredients: [
-                    { name: "Cuisse de poulet fermier", amount: 175, unit: "g" },
-                    { name: "Pommes de terre grenailles", amount: 215, unit: "g" },
-                    { name: "Carottes en tronçons", amount: 75, unit: "g" },
-                    { name: "Huile d'olive", amount: 1, unit: "c.à.c" },
-                    { name: "Bouillon de volaille & thym", amount: 45, unit: "ml" }
-                ],
-                steps: [
-                    "Préchauffez le four à 200°C. Coupez les grenailles en deux et les carottes en tronçons épais, enrobez d'huile et de thym.",
-                    "Disposez la cuisse de poulet et les garnitures dans un plat avec le bouillon de volaille.",
-                    "Enfournez 30 min en arrosant le poulet à mi-cuisson pour préserver tout son moelleux.",
-                    "Rangez la cuisse de poulet, les grenailles, les carottes et le jus de cuisson dans la barquette."
-                ],
-                tip: "Le jus de rôti au fond de la barquette hydrate les pommes de terre et les carottes pendant le réchauffage au bureau."
-            },
-            {
-                id: 3,
-                week: 1,
-                row: 0,
-                col: 2,
-                title: "Lasagnes bolognaise gratinées",
-                subtitle: "Feuilles de lasagnes fondantes, bœuf haché mijoté à la tomate, béchamel légère et emmental gratiné.",
-                prepTime: "35 min",
-                kcal: 585,
-                macros: { p: 35, g: 64, l: 21 },
-                ingredients: [
-                    { name: "Feuilles de lasagnes (crues)", amount: 75, unit: "g" },
-                    { name: "Bœuf haché 5% MG", amount: 125, unit: "g" },
-                    { name: "Coulis de tomate cuisiné", amount: 110, unit: "g" },
-                    { name: "Sauce béchamel légère", amount: 65, unit: "g" },
-                    { name: "Emmental râpé", amount: 25, unit: "g" }
-                ],
-                steps: [
-                    "Faites revenir le bœuf haché 5 min à la poêle, versez le coulis de tomate et laissez mijoter 6 min.",
-                    "Dans un plat à gratin, alternez sauce bolognaise, feuilles de lasagnes et béchamel légère.",
-                    "Terminez par la béchamel et l'emmental râpé, puis enfournez 25 min à 190°C jusqu'à obtenir un gratin doré.",
-                    "Laissez tiédir 10 min pour une découpe nette et glissez la part dans la barquette."
-                ],
-                tip: "Les lasagnes supportent merveilleusement la congélation et retrouvent tout leur fondant en 3 min au micro-ondes."
-            },
-            {
-                id: 4,
-                week: 1,
-                row: 0,
-                col: 3,
-                title: "Saucisses grillées, purée maison & petits pois",
-                subtitle: "Saucisses de Toulouse grillées au jus, purée de pommes de terre crémeuse et petits pois fondants.",
-                prepTime: "25 min",
-                kcal: 575,
-                macros: { p: 29, g: 57, l: 24 },
-                ingredients: [
-                    { name: "Pommes de terre à purée", amount: 240, unit: "g" },
-                    { name: "Saucisses de Toulouse", amount: 130, unit: "g" },
-                    { name: "Petits pois surgelés", amount: 50, unit: "g" },
-                    { name: "Beurre demi-sel", amount: 10, unit: "g" },
-                    { name: "Lait demi-écrémé & fond de veau", amount: 60, unit: "ml" }
-                ],
-                steps: [
-                    "Épluchez et coupez les pommes de terre. Cuisez-les 18 min à l'eau bouillante salée (ajoutez les petits pois les 4 dernières minutes).",
-                    "Grillez les saucisses de Toulouse à la poêle 15 min à feu moyen, puis déglacez avec le fond de veau.",
-                    "Écrasez les pommes de terre avec le beurre et le lait chaud pour obtenir une purée lisse et crémeuse.",
-                    "Disposez la purée, les petits pois et les saucisses nappées de jus dans la barquette."
-                ],
-                tip: "Une purée enrichie d'une noisette de beurre et d'un trait de lait reste bien onctueuse après décongélation."
-            },
-            {
-                id: 5,
-                week: 1,
-                row: 0,
-                col: 4,
-                title: "Fusilli aux boulettes de bœuf sauce tomate",
-                subtitle: "Pâtes fusilli torsadées, boulettes de bœuf tendres mijotées dans une sauce tomate aux herbes.",
-                prepTime: "20 min",
-                kcal: 565,
-                macros: { p: 35, g: 72, l: 15 },
-                ingredients: [
-                    { name: "Pâtes fusilli (poids cru)", amount: 85, unit: "g" },
-                    { name: "Boulettes de bœuf pur bœuf", amount: 135, unit: "g" },
-                    { name: "Coulis de tomate aux herbes", amount: 115, unit: "g" },
-                    { name: "Huile d'olive", amount: 1, unit: "c.à.c" },
-                    { name: "Parmesan râpé", amount: 10, unit: "g" }
-                ],
-                steps: [
-                    "Cuisez les fusilli 'al dente' (1 min de moins que le temps du paquet) puis égouttez.",
-                    "Dorez les boulettes de bœuf dans l'huile d'olive 5 min à la poêle, puis versez le coulis de tomate aux herbes.",
-                    "Laissez mijoter à couvert 7 min à feu doux pour garder les boulettes bien tendres.",
-                    "Placez les fusilli dans la barquette, ajoutez les boulettes avec leur sauce et le parmesan."
-                ],
-                tip: "Les spirales des fusilli retiennent idéalement la sauce tomate lors du réchauffage au bureau."
-            },
+  <!-- ONGLET 2 : LISTE DE COURSES -->
+  <section id="tab-shopping" class="section-panel">
+    <div class="shopping-controls">
+      <div>
+        <strong>Liste de courses par semaine (pour 5 barquettes)</strong>
+        <p style="font-size:0.86rem;color:var(--muted);">Cochez vos articles au fur et à mesure — votre progression est sauvegardée automatiquement.</p>
+      </div>
+      <div class="action-btns">
+        <select id="shopWeekSelect" class="btn-secondary">
+          <option value="1">Semaine 1 — Plats 1 à 5</option>
+          <option value="2">Semaine 2 — Plats 6 à 10</option>
+          <option value="3">Semaine 3 — Plats 11 à 15</option>
+        </select>
+        <button class="btn-secondary" id="copyShopBtn">📋 Copier la liste</button>
+        <button class="btn-secondary" id="resetShopBtn">↺ Tout décocher</button>
+      </div>
+    </div>
+    <div class="shopping-grid" id="shoppingContainer"></div>
+  </section>
 
-            // --- SEMAINE 2 (RANGÉE 1) ---
-            {
-                id: 6,
-                week: 2,
-                row: 1,
-                col: 0,
-                title: "Rôti de porc en tranches, pommes de terre sautées & haricots verts",
-                subtitle: "Tranches de filet de porc rôti au jus, pommes de terre dorées à la poêle et haricots verts fins.",
-                prepTime: "30 min",
-                kcal: 540,
-                macros: { p: 37, g: 54, l: 18 },
-                ingredients: [
-                    { name: "Filet de porc rôti en tranches", amount: 150, unit: "g" },
-                    { name: "Pommes de terre en cubes", amount: 230, unit: "g" },
-                    { name: "Haricots verts fins", amount: 60, unit: "g" },
-                    { name: "Huile d'olive", amount: 1.5, unit: "c.à.c" },
-                    { name: "Fond de veau ou jus de rôti", amount: 40, unit: "ml" }
-                ],
-                steps: [
-                    "Cuisez le filet de porc au four à 190°C pendant 22 min avec les herbes et un fond de bouillon.",
-                    "Faites dorer les cubes de pommes de terre à la poêle dans l'huile 15 min, et cuisez les haricots verts 6 min à l'eau.",
-                    "Tranchez le rôti de porc et récupérez le jus de cuisson lié au fond de veau.",
-                    "Disposez les tranches nappées de jus, les pommes de terre dorées et les haricots verts dans la barquette."
-                ],
-                tip: "Nappez généreusement les tranches de porc de leur jus avant congélation pour préserver tout leur moelleux."
-            },
-            {
-                id: 7,
-                week: 2,
-                row: 1,
-                col: 1,
-                title: "Hachis parmentier gratiné & duo carottes-courgettes",
-                subtitle: "Viande hachée mijotée sous une purée de pommes de terre gratinée au four, accompagnée d'un duo carottes-courgettes.",
-                prepTime: "30 min",
-                kcal: 555,
-                macros: { p: 34, g: 58, l: 20 },
-                ingredients: [
-                    { name: "Pommes de terre à purée", amount: 220, unit: "g" },
-                    { name: "Bœuf haché 5% MG", amount: 130, unit: "g" },
-                    { name: "Duo carottes & courgettes en dés", amount: 80, unit: "g" },
-                    { name: "Beurre & lait (pour la purée)", amount: 12, unit: "g" },
-                    { name: "Emmental râpé", amount: 18, unit: "g" },
-                    { name: "Bouillon de bœuf", amount: 30, unit: "ml" }
-                ],
-                steps: [
-                    "Cuisez les pommes de terre 18 min à l'eau salée, et faites revenir les dés de carottes et courgettes 7 min à la poêle.",
-                    "Faites dorer le bœuf haché 6 min avec le bouillon de bœuf pour garder la viande bien juteuse.",
-                    "Écrasez les pommes de terre en purée. Montez le hachis dans un plat, couvrez de purée et d'emmental.",
-                    "Faites gratiner 10 min sous le gril, puis transférez dans la barquette avec le duo carottes-courgettes."
-                ],
-                tip: "Le hachis parmentier est un champion du batch cooking : il reste fondant et très rassasiant jusqu'à 18h."
-            },
-            {
-                id: 8,
-                week: 2,
-                row: 1,
-                col: 2,
-                title: "Poulet curry doux, riz basmati & pain naan",
-                subtitle: "Émincé de poulet dans une sauce curry coco légère, riz basmati parfumé et demi-naan moelleux.",
-                prepTime: "20 min",
-                kcal: 580,
-                macros: { p: 37, g: 74, l: 14 },
-                ingredients: [
-                    { name: "Émincé de blanc de poulet", amount: 135, unit: "g" },
-                    { name: "Riz basmati (poids cru)", amount: 70, unit: "g" },
-                    { name: "Demi-pain naan nature", amount: 40, unit: "g" },
-                    { name: "Lait de coco léger", amount: 65, unit: "ml" },
-                    { name: "Curry doux & curcuma", amount: 1.5, unit: "c.à.c" },
-                    { name: "Coulis de tomate", amount: 25, unit: "g" }
-                ],
-                steps: [
-                    "Cuisez le riz basmati 10 min dans l'eau bouillante salée puis égouttez.",
-                    "Saisissez l'émincé de poulet à la poêle 4 min avec le curry doux et le curcuma.",
-                    "Versez le lait de coco léger et le coulis de tomate, laissez mijoter 6 min jusqu'à obtenir une sauce onctueuse.",
-                    "Disposez le poulet curry et le riz dans la barquette, et glissez le demi-naan coupé en triangles sur le côté."
-                ],
-                tip: "Au bureau, posez le naan sur le riz pendant le réchauffage (2 min 30) : la vapeur le rendra tout chaud et souple."
-            },
-            {
-                id: 9,
-                week: 2,
-                row: 1,
-                col: 3,
-                title: "Pommes de terre rissolées, aubergines & dés de bœuf sautés",
-                subtitle: "Poêlée gourmande associant pommes de terre rissolées, dés de bœuf poêlés au jus et aubergines fondantes.",
-                prepTime: "25 min",
-                kcal: 535,
-                macros: { p: 36, g: 54, l: 18 },
-                ingredients: [
-                    { name: "Pommes de terre à chair ferme", amount: 235, unit: "g" },
-                    { name: "Dés de bœuf à poêler (rumsteck)", amount: 135, unit: "g" },
-                    { name: "Aubergine coupée en dés", amount: 80, unit: "g" },
-                    { name: "Huile d'olive", amount: 1.5, unit: "c.à.c" },
-                    { name: "Fond de veau (pour le jus)", amount: 45, unit: "ml" }
-                ],
-                steps: [
-                    "Coupez les pommes de terre en dés et précuisez-les 8 min à l'eau bouillante, puis égouttez.",
-                    "Faites fondre les dés d'aubergine à la poêle dans l'huile 6 min, réservez, puis saisissez les dés de bœuf 3 min à feu vif.",
-                    "Réunissez pommes de terre, aubergines et bœuf dans la poêle avec le fond de veau et laissez réduire 4 min.",
-                    "Transférez la poêlée complète dans la barquette."
-                ],
-                tip: "Le jus réduit au fond de veau enrobe les pommes de terre et garde les dés de bœuf bien tendres au micro-ondes."
-            },
-            {
-                id: 10,
-                week: 2,
-                row: 1,
-                col: 4,
-                title: "Escalope de poulet panée croustillante & salade de pommes de terre",
-                subtitle: "Escalope de poulet dorée accompagnée de pommes de terre tièdes persillées relevées d'une touche moutardée.",
-                prepTime: "20 min",
-                kcal: 590,
-                macros: { p: 37, g: 62, l: 20 },
-                ingredients: [
-                    { name: "Escalope de poulet panée", amount: 150, unit: "g" },
-                    { name: "Pommes de terre en dés", amount: 245, unit: "g" },
-                    { name: "Crème légère 15% MG", amount: 20, unit: "ml" },
-                    { name: "Moutarde douce & persil frais", amount: 1, unit: "c.à.c" },
-                    { name: "Huile neutre (cuisson)", amount: 1, unit: "c.à.c" }
-                ],
-                steps: [
-                    "Cuisez les dés de pommes de terre 14 min à l'eau bouillante salée, puis égouttez.",
-                    "Faites dorer l'escalope de poulet panée à la poêle dans l'huile 4 min de chaque côté à feu moyen.",
-                    "Mélangez les pommes de terre tièdes avec la crème légère, la moutarde douce et le persil ciselé.",
-                    "Placez l'escalope dorée d'un côté de la barquette et les pommes de terre persillées de l'autre."
-                ],
-                tip: "Gardez l'escalope bien séparée des pommes de terre dans la barquette pour conserver le croustillant de la panure."
-            },
+  <!-- ONGLET 3 : PLAN DU DIMANCHE -->
+  <section id="tab-plan" class="section-panel">
+    <div class="plan-grid">
+      <div class="timeline-card">
+        <h2 style="font-size:1.25rem;margin-bottom:0.35rem;">⏱️ Chronologie Batch Cooking du Dimanche (~1h35)</h2>
+        <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">
+          Organisation en parallèle (four + 2 plaques + mijoteuse/cocotte) pour préparer les 5 barquettes de la semaine sans attente inutile.
+        </p>
 
-            // --- SEMAINE 3 (RANGÉE 2) ---
-            {
-                id: 11,
-                week: 3,
-                row: 2,
-                col: 0,
-                title: "Chili con carne au bœuf & riz blanc parfumé",
-                subtitle: "Bœuf haché épicé doux mijoté aux haricots rouges et sauce tomate, servi avec un riz blanc parfumé.",
-                prepTime: "25 min",
-                kcal: 570,
-                macros: { p: 37, g: 74, l: 13 },
-                ingredients: [
-                    { name: "Riz blanc basmati (poids cru)", amount: 75, unit: "g" },
-                    { name: "Bœuf haché 5% MG", amount: 130, unit: "g" },
-                    { name: "Haricots rouges (égouttés)", amount: 65, unit: "g" },
-                    { name: "Pulpe de tomate", amount: 100, unit: "g" },
-                    { name: "Cumin, paprika doux & origan", amount: 1, unit: "c.à.c" },
-                    { name: "Huile d'olive & coriandre", amount: 1, unit: "c.à.c" }
-                ],
-                steps: [
-                    "Cuisez le riz blanc 10 min dans l'eau bouillante salée puis égouttez.",
-                    "Faites revenir le bœuf haché dans l'huile avec le cumin et le paprika doux pendant 5 min.",
-                    "Ajoutez la pulpe de tomate et les haricots rouges rincés, laissez mijoter 8 min à feu doux.",
-                    "Placez le chili con carne d'un côté de la barquette et le riz blanc de l'autre."
-                ],
-                tip: "Le duo riz blanc + haricots rouges offre une énergie progressive qui coupe toute fringale jusqu'au dîner."
-            },
-            {
-                id: 12,
-                week: 3,
-                row: 2,
-                col: 1,
-                title: "Cuisse de canard confite, pommes sarladaises & chou rouge",
-                subtitle: "Cuisse de canard confite dorée au four, rondelles de pommes de terre sarladaises et chou rouge braisé.",
-                prepTime: "25 min",
-                kcal: 595,
-                macros: { p: 34, g: 54, l: 26 },
-                ingredients: [
-                    { name: "Cuisse de canard confite (dégraissée)", amount: 145, unit: "g" },
-                    { name: "Pommes de terre en rondelles", amount: 225, unit: "g" },
-                    { name: "Chou rouge braisé (bocal ou frais)", amount: 65, unit: "g" },
-                    { name: "Ail haché & persil frais", amount: 1, unit: "c.à.c" },
-                    { name: "Graisse de canard (1 c.à.c)", amount: 5, unit: "g" }
-                ],
-                steps: [
-                    "Retirez l'excédent de graisse de la cuisse de canard et faites-la dorer 16 min au four à 200°C.",
-                    "Dans une poêle avec 1 c.à.c de graisse de canard, faites dorer les rondelles de pommes de terre 15 min avec l'ail et le persil.",
-                    "Réchauffez rapidement le chou rouge braisé à la casserole.",
-                    "Disposez les pommes sarladaises, la cuisse de canard dorée et le chou rouge dans la barquette."
-                ],
-                tip: "Déjà confite lentement, la chair de canard reste incroyablement fondante après décongélation."
-            },
-            {
-                id: 13,
-                week: 3,
-                row: 2,
-                col: 2,
-                title: "Steak haché façon bouchère, frites au four & champignons",
-                subtitle: "Steak haché grillé nappé d'une sauce poivre légère, frites dorées au four et champignons sautés.",
-                prepTime: "25 min",
-                kcal: 585,
-                macros: { p: 35, g: 58, l: 22 },
-                ingredients: [
-                    { name: "Steak haché façon bouchère 5% MG", amount: 140, unit: "g" },
-                    { name: "Frites au four surgelées", amount: 190, unit: "g" },
-                    { name: "Champignons de Paris émincés", amount: 55, unit: "g" },
-                    { name: "Crème liquide légère 15% MG", amount: 35, unit: "ml" },
-                    { name: "Fond de veau & poivre concassé", amount: 1, unit: "c.à.c" }
-                ],
-                steps: [
-                    "Enfournez les frites au four selon les instructions du paquet (environ 18 min à 210°C) pour qu'elles soient bien dorées.",
-                    "Saisissez le steak haché 3 min par face dans une poêle chaude avec les champignons émincés.",
-                    "Déglacez la poêle avec la crème légère, le fond de veau et le poivre concassé pendant 2 min.",
-                    "Placez le steak nappé de sauce poivre, les champignons et les frites dorées dans la barquette."
-                ],
-                tip: "Les frites spéciales cuisson au four se tiennent nettement mieux à la congélation que les frites classiques."
-            },
-            {
-                id: 14,
-                week: 3,
-                row: 2,
-                col: 3,
-                title: "Médaillons de filet mignon sauce moutarde & coquillettes",
-                subtitle: "Filet mignon de porc en médaillons tendres, sauce crème moutarde à l'ancienne et coquillettes.",
-                prepTime: "20 min",
-                kcal: 550,
-                macros: { p: 38, g: 66, l: 14 },
-                ingredients: [
-                    { name: "Filet mignon de porc en médaillons", amount: 145, unit: "g" },
-                    { name: "Coquillettes (poids cru)", amount: 85, unit: "g" },
-                    { name: "Crème fraîche légère 15% MG", amount: 40, unit: "g" },
-                    { name: "Moutarde à l'ancienne (en grains)", amount: 1.5, unit: "c.à.c" },
-                    { name: "Huile d'olive", amount: 1, unit: "c.à.c" }
-                ],
-                steps: [
-                    "Cuisez les coquillettes 'al dente' (1 min de moins que le temps du paquet) puis égouttez.",
-                    "Saisissez les médaillons de filet mignon dans l'huile d'olive 3 min par face à feu moyen.",
-                    "Baissez le feu, ajoutez la crème légère, la moutarde à l'ancienne et 2 c.à.s d'eau. Laissez napper 3 min.",
-                    "Disposez les coquillettes et les médaillons nappés de sauce moutarde dans la barquette."
-                ],
-                tip: "La sauce crème-moutarde protège le filet mignon lors du réchauffage au bureau pour un fondant parfait."
-            },
-            {
-                id: 15,
-                week: 3,
-                row: 2,
-                col: 4,
-                title: "Bœuf bourguignon mijoté, pommes de terre & carottes",
-                subtitle: "Morceaux de bœuf fondants mijotés dans une sauce riche réduite avec pommes de terre et carottes.",
-                prepTime: "45 min",
-                kcal: 560,
-                macros: { p: 37, g: 56, l: 19 },
-                ingredients: [
-                    { name: "Bœuf à braiser en cubes (paleron)", amount: 145, unit: "g" },
-                    { name: "Pommes de terre en cubes", amount: 220, unit: "g" },
-                    { name: "Carotte en rondelles", amount: 55, unit: "g" },
-                    { name: "Bouillon de bœuf corsé", amount: 120, unit: "ml" },
-                    { name: "Concentré de tomate & farine", amount: 10, unit: "g" },
-                    { name: "Huile d'olive, thym, laurier", amount: 1, unit: "c.à.c" }
-                ],
-                steps: [
-                    "Dorez les cubes de bœuf dans l'huile 4 min, saupoudrez d'1 c.à.c de farine et mélangez.",
-                    "Ajoutez le bouillon de bœuf, le concentré de tomate, le thym, le laurier et les carottes. Mijotez à couvert 25 min.",
-                    "Ajoutez les cubes de pommes de terre et poursuivez la cuisson 15 min jusqu'à ce que tout soit fondant et nappant.",
-                    "Transférez le bœuf bourguignon complet dans la barquette."
-                ],
-                tip: "Comme tout plat mijoté, le bœuf bourguignon gagne encore en saveur après un passage au congélateur."
-            }
-        ];
+        <div class="timeline-step">
+          <div class="time-badge">00:00 – 00:15</div>
+          <div>
+            <strong>Mise en place &amp; préchauffage (15 min)</strong>
+            <p style="font-size:0.88rem;color:var(--muted);">Préchauffer le four à 200 °C. Émincer tous les oignons et l'ail de la semaine en une seule fois. Couper les pommes de terre et les viandes sur deux planches distinctes.</p>
+          </div>
+        </div>
 
-        // ==================== DONNÉES : LISTE DE COURSES PAR SEMAINE ====================
-        const SHOPPING_LISTS = {
-            1: {
-                "🥩 Boucherie & Volaille": [
-                    "Bœuf haché 5% MG : 255 g (Spaghetti bolognaise + Lasagnes)",
-                    "Cuisse de poulet fermier : 1 pièce (~175 g)",
-                    "Saucisses de Toulouse : 130 g",
-                    "Boulettes de bœuf pur bœuf : 135 g"
-                ],
-                "🍝 Féculents & Épicerie": [
-                    "Spaghetti : 85 g",
-                    "Pâtes fusilli : 85 g",
-                    "Feuilles de lasagnes : 75 g",
-                    "Coulis de tomate (nature et herbes) : 345 g",
-                    "Sauce béchamel prête (petite brique) : 65 g",
-                    "Bouillon de volaille, fond de veau & basilic"
-                ],
-                "🧀 Crèmerie": [
-                    "Parmesan râpé : 20 g",
-                    "Emmental râpé : 25 g",
-                    "Beurre demi-sel : 10 g",
-                    "Lait demi-écrémé : 30 ml"
-                ],
-                "🥔 Légumes & Surgelés": [
-                    "Pommes de terre grenailles : 215 g",
-                    "Pommes de terre à purée : 240 g",
-                    "Carotte : 1 pièce (75 g)",
-                    "Oignon jaune : 1 petit (25 g)",
-                    "Petits pois surgelés : 50 g"
-                ]
-            },
-            2: {
-                "🥩 Boucherie & Volaille": [
-                    "Filet de porc rôti : 150 g",
-                    "Bœuf haché 5% MG : 130 g (Hachis parmentier)",
-                    "Dés de bœuf à poêler (rumsteck) : 135 g",
-                    "Blanc de poulet : 135 g (Curry doux)",
-                    "Escalope de poulet panée : 1 pièce (150 g)"
-                ],
-                "🍝 Féculents & Épicerie": [
-                    "Riz basmati : 70 g",
-                    "Demi-pain naan nature : 40 g",
-                    "Lait de coco léger (mini-brique) : 65 ml",
-                    "Coulis de tomate : 25 g",
-                    "Curry doux, curcuma & fond de veau"
-                ],
-                "🧀 Crèmerie": [
-                    "Crème légère 15% MG : 20 ml",
-                    "Beurre : 12 g",
-                    "Emmental râpé : 18 g",
-                    "Moutarde douce : 1 c.à.c"
-                ],
-                "🍆 Légumes & Surgelés": [
-                    "Pommes de terre : 930 g (~7 pommes de terre moyennes)",
-                    "Haricots verts fins (frais ou surgelés) : 60 g",
-                    "Duo carottes & courgettes : 80 g",
-                    "Aubergine : 1 petite (80 g)"
-                ]
-            },
-            3: {
-                "🥩 Boucherie, Volaille & Canard": [
-                    "Bœuf haché 5% MG : 130 g (Chili con carne)",
-                    "Steak haché façon bouchère 5% MG : 1 pièce (140 g)",
-                    "Bœuf à braiser en cubes (paleron) : 145 g",
-                    "Filet mignon de porc en médaillons : 145 g",
-                    "Cuisse de canard confite : 1 pièce (145 g)"
-                ],
-                "🍝 Féculents & Épicerie": [
-                    "Riz blanc basmati : 75 g",
-                    "Coquillettes : 85 g",
-                    "Petite boîte de haricots rouges : 65 g égouttés",
-                    "Pulpe de tomate : 100 g & concentré de tomate : 10 g",
-                    "Bouillon de bœuf, cumin, paprika, thym, laurier & poivre concassé"
-                ],
-                "🧀 Crèmerie": [
-                    "Crème fraîche légère 15% MG : 75 g",
-                    "Moutarde à l'ancienne : 1.5 c.à.c"
-                ],
-                "🍟 Légumes & Surgelés": [
-                    "Pommes de terre : 445 g (3 à 4 moyennes)",
-                    "Frites au four surgelées : 190 g",
-                    "Champignons de Paris frais : 55 g",
-                    "Chou rouge braisé : 65 g & Carotte : 1 petite (55 g)",
-                    "Persil frais & ail"
-                ]
-            }
-        };
+        <div class="timeline-step">
+          <div class="time-badge">00:15 – 00:35</div>
+          <div>
+            <strong>Lancement des cuissons longues &amp; four (20 min)</strong>
+            <p style="font-size:0.88rem;color:var(--muted);">Enfourner les rôtis, pilons de poulet, lasagnes ou pommes de terre rôties. Lancer en parallèle le plat mijoté (bourguignon, chili ou curry) à feu doux.</p>
+          </div>
+        </div>
 
-        // ==================== DONNÉES : PLAN DU DIMANCHE ====================
-        const SUNDAY_PLANS = {
-            1: {
-                totalTime: "1h 35",
-                dishes: [
-                    "1. Spaghetti bolognaise",
-                    "2. Cuisse de poulet rôti",
-                    "3. Lasagnes bolognaise",
-                    "4. Saucisses & purée",
-                    "5. Fusilli aux boulettes"
-                ],
-                steps: [
-                    {
-                        time: "00:00 — 00:15",
-                        title: "Mise en place & Préchauffage du four (15 min)",
-                        desc: "Préchauffez le four à 200°C. Coupez les grenailles en deux et la carotte en tronçons (Plat 2), épluchez les pommes de terre de la purée (Plat 4) et émincez l'oignon (Plat 1). Alignez vos 5 barquettes.",
-                        badge: "Préparation"
-                    },
-                    {
-                        time: "00:15 — 00:45",
-                        title: "Au four : Poulet rôti & Lasagnes en parallèle (30 min)",
-                        desc: "Enfournez la cuisse de poulet, les grenailles et les carottes avec le bouillon (Plat 2, 30 min). Pendant ce temps, faites revenir tout le bœuf haché (255 g) avec le coulis de tomate : montez les Lasagnes (Plat 3) avec la moitié de la sauce, la béchamel et l'emmental, puis enfournez 25 min !",
-                        badge: "Cuisson Four"
-                    },
-                    {
-                        time: "00:45 — 01:05",
-                        title: "Casseroles : Purée, Spaghetti & Fusilli (20 min)",
-                        desc: "Casserole 1 : Cuisez les pommes de terre de la purée 18 min (ajoutez les petits pois à la fin). Casserole 2 : Cuisez les spaghetti 'al dente' (8 min) puis mélangez-les au reste de sauce bolognaise (Plat 1). Cuisez ensuite les fusilli (9 min).",
-                        badge: "Féculents"
-                    },
-                    {
-                        time: "01:05 — 01:25",
-                        title: "Poêle : Saucisses grillées & Boulettes sauce tomate (20 min)",
-                        desc: "Grillez les saucisses de Toulouse à la poêle 15 min et déglacez au fond de veau (Plat 4), puis écrasez la purée au beurre et lait. En parallèle, dorez les boulettes de bœuf et mijotez-les 7 min dans le coulis aux herbes pour les fusilli (Plat 5).",
-                        badge: "Viandes & Sauces"
-                    },
-                    {
-                        time: "01:25 — 01:35",
-                        title: "Mise en barquettes & Congélation (10 min)",
-                        desc: "Sortez le poulet rôti et les lasagnes du four. Remplissez vos 5 barquettes, laissez tiédir 25 min à température ambiante avant de clipser les couvercles et placer au congélateur.",
-                        badge: "Stockage"
-                    }
-                ]
-            },
-            2: {
-                totalTime: "1h 35",
-                dishes: [
-                    "6. Rôti de porc & haricots verts",
-                    "7. Hachis parmentier gratiné",
-                    "8. Poulet curry doux & naan",
-                    "9. Dés de bœuf & aubergines",
-                    "10. Escalope panée & pommes persillées"
-                ],
-                steps: [
-                    {
-                        time: "00:00 — 00:15",
-                        title: "Épluchage & Découpe groupée (15 min)",
-                        desc: "Préchauffez le four à 195°C. Épluchez et coupez toutes les pommes de terre de la semaine (930 g). Coupez l'aubergine en dés (Plat 9), le duo carottes-courgettes (Plat 7) et émincez le poulet et le bœuf (Plats 8 & 9).",
-                        badge: "Préparation"
-                    },
-                    {
-                        time: "00:15 — 00:40",
-                        title: "Rôti de porc au four & Cuisson des bases (25 min)",
-                        desc: "Enfournez le filet de porc avec les herbes et un fond de bouillon (Plat 6, 22 min). Casserole 1 : Cuisez les pommes de terre du Parmentier (18 min). Casserole 2 : Précuisez 8 min les pommes de terre des Plats 9 et 10, puis cuisez le riz basmati (Plat 8, 10 min).",
-                        badge: "Cuissons Bases"
-                    },
-                    {
-                        time: "00:40 — 01:05",
-                        title: "Hachis Parmentier & Poulet Curry Coco (25 min)",
-                        desc: "Faites revenir le bœuf haché (Plat 7), écrasez la purée, montez le Parmentier et passez-le 8 min sous le gril (en même temps que vous tranchez le rôti de porc sorti du four). À la poêle, cuisez le poulet curry doux et lait de coco (Plat 8, 10 min) -> en barquette avec riz et demi-naan !",
-                        badge: "Plats Mijotés"
-                    },
-                    {
-                        time: "01:05 — 01:25",
-                        title: "Poêlées finales : Bœuf-aubergines & Escalope panée (20 min)",
-                        desc: "Poêle 1 : Faites fondre les aubergines, saisissez les dés de bœuf et rissolez les pommes de terre précuites avec le fond de veau (Plat 9, 12 min). Poêle 2 : Dorez l'escalope panée 4 min par face (Plat 10) et assaisonnez les pommes de terre persillées.",
-                        badge: "Poêlées"
-                    },
-                    {
-                        time: "01:25 — 01:35",
-                        title: "Refroidissement & Congélation (10 min)",
-                        desc: "Laissez refroidir les 5 barquettes ouvertes 25 min sur le plan de travail, puis fermez hermétiquement et placez au congélateur.",
-                        badge: "Stockage"
-                    }
-                ]
-            },
-            3: {
-                totalTime: "1h 35",
-                dishes: [
-                    "11. Chili con carne & riz",
-                    "12. Cuisse de canard & sarladaises",
-                    "13. Steak haché & frites au four",
-                    "14. Filet mignon moutarde & coquillettes",
-                    "15. Bœuf bourguignon mijoté"
-                ],
-                steps: [
-                    {
-                        time: "00:00 — 00:15",
-                        title: "Mise en place & Lancement du Bourguignon (15 min)",
-                        desc: "Préchauffez le four à 205°C. Coupez le bœuf à braiser, la carotte et les pommes de terre (Plats 12 et 15). Saisissez le bœuf du Bourguignon en cocotte, ajoutez bouillon, carotte et aromates et lancez le mijotage à couvert pour 40 min (Plat 15).",
-                        badge: "Mijotage"
-                    },
-                    {
-                        time: "00:15 — 00:40",
-                        title: "Four : Cuisse de canard confite & Frites (25 min)",
-                        desc: "Disposez la cuisse de canard confite sur une plaque (Plat 12, 16 min) et les frites au four sur une seconde plaque (Plat 13, 18 min). Ajoutez les cubes de pommes de terre dans la cocotte du Bourguignon à mi-parcours.",
-                        badge: "Cuisson Four"
-                    },
-                    {
-                        time: "00:40 — 01:05",
-                        title: "Féculents & Chili con carne (25 min)",
-                        desc: "Casserole 1 : Cuisez le riz blanc (Plat 11, 10 min) puis les coquillettes 'al dente' (Plat 14, 8 min). Poêle 1 : Préparez le Chili con carne avec bœuf haché, pulpe de tomate, épices et haricots rouges (Plat 11, 12 min) -> en barquette avec le riz !",
-                        badge: "Riz & Chili"
-                    },
-                    {
-                        time: "01:05 — 01:25",
-                        title: "Sarladaises, Filet mignon moutarde & Steak poivre (20 min)",
-                        desc: "Poêle 1 : Dorez les rondelles de pommes de terre sarladaises à l'ail et persil (Plat 12, 14 min) -> en barquette avec canard et chou rouge. Poêle 2 : Cuisez les médaillons de filet mignon sauce moutarde (Plat 14, 7 min), puis saisissez le steak haché, champignons et sauce poivre (Plat 13, 6 min).",
-                        badge: "Poêlées Bistro"
-                    },
-                    {
-                        time: "01:25 — 01:35",
-                        title: "Dressage & Congélation (10 min)",
-                        desc: "Vérifiez le fondant du Bœuf Bourguignon et remplissez la 5e barquette. Laissez tiédir 25 min avant de fermer et congeler.",
-                        badge: "Stockage"
-                    }
-                ]
-            }
-        };
+        <div class="timeline-step">
+          <div class="time-badge">00:35 – 01:00</div>
+          <div>
+            <strong>Féculents à l'eau &amp; poêlées rapides (25 min)</strong>
+            <p style="font-size:0.88rem;color:var(--muted);">Cuire les pâtes <em>al dente</em> (retirer 1 min avant le temps indiqué pour éviter qu'elles ne ramollissent au réchauffage), le riz basmati et les spätzle. Saisir les steaks hachés, boulettes ou escalopes.</p>
+          </div>
+        </div>
 
-        // ==================== GÉNÉRATEUR DE SECOURS PHOTOGRAPHIE HAUTE RÉSOLUTION (ZÉRO RÉSEAU) ====================
-        // Utilisé uniquement si le navigateur ne peut pas résoudre le fichier local watermarked_img_17335986442964618476.jpg
-        const fallbackDataUrlCache = {};
+        <div class="timeline-step">
+          <div class="time-badge">01:00 – 01:20</div>
+          <div>
+            <strong>Assemblage &amp; refroidissement à découvert (20 min)</strong>
+            <p style="font-size:0.88rem;color:var(--muted);">Répartir féculents, viande et sauce dans les 5 barquettes en verre ou plastique sans BPA. Laisser refroidir 20 min à température ambiante avant de clipser les couvercles.</p>
+          </div>
+        </div>
 
-        function getPhotorealisticFallbackDataUrl(recipe) {
-            if (fallbackDataUrlCache[recipe.id]) return fallbackDataUrlCache[recipe.id];
+        <div class="timeline-step">
+          <div class="time-badge">01:20 – 01:35</div>
+          <div>
+            <strong>Étiquetage &amp; mise au congélateur (15 min)</strong>
+            <p style="font-size:0.88rem;color:var(--muted);">Coller une bande de ruban de masquage avec le nom du plat et la date. Placer bien à plat au congélateur (conservation idéale : 3 à 4 semaines).</p>
+          </div>
+        </div>
+      </div>
 
-            const canvas = document.createElement('canvas');
-            canvas.width = 640;
-            canvas.height = 480;
-            const ctx = canvas.getContext('2d');
+      <div class="protocol-card">
+        <h2 style="font-size:1.25rem;margin-bottom:0.35rem;">❄️ Protocole Matin &amp; Bureau</h2>
+        <p style="font-size:0.9rem;color:var(--muted);">
+          La méthode exacte pour que votre plat décongèle tout seul pendant la matinée et reste moelleux au micro-ondes.
+        </p>
 
-            // Fond plan de travail en chêne chaleureux
-            const woodGrad = ctx.createLinearGradient(0, 0, 640, 480);
-            woodGrad.addColorStop(0, '#7c5338');
-            woodGrad.addColorStop(0.5, '#644029');
-            woodGrad.addColorStop(1, '#4b2f1d');
-            ctx.fillStyle = woodGrad;
-            ctx.fillRect(0, 0, 640, 480);
+        <div class="protocol-box">
+          <h4>1. Le matin avant de partir (07h30 – 08h30)</h4>
+          <p>Sortez la barquette directement du congélateur et glissez-la dans votre sac isotherme (sans pain de glace). Entre 7h30 et 12h30 (4 à 5 heures), le plat passe progressivement de -18 °C à environ +4 °C / +8 °C en toute sécurité alimentaire.</p>
+        </div>
 
-            // Veines du bois réalistes
-            ctx.strokeStyle = 'rgba(35, 18, 8, 0.22)';
-            ctx.lineWidth = 2;
-            for (let y = 12; y < 480; y += 18) {
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.bezierCurveTo(210, y - 6, 430, y + 7, 640, y - 2);
-                ctx.stroke();
-            }
+        <div class="protocol-box" style="background:var(--green-soft);border-color:#cce3d7;">
+          <h4 style="color:#1f4d39;">2. Au bureau à midi (Réchauffage parfait)</h4>
+          <p>Entrouvrez un coin du couvercle. Ajoutez <strong>1 cuillère à soupe d'eau</strong> sur les pâtes ou le riz pour recréer de la vapeur. Chauffez <strong>2 min 30 à 3 min à 750 W</strong> en remuant à mi-parcours.</p>
+        </div>
 
-            // Lumière naturelle venant de la fenêtre en haut à gauche
-            const lightGrad = ctx.createRadialGradient(130, 80, 20, 320, 240, 450);
-            lightGrad.addColorStop(0, 'rgba(255, 248, 232, 0.34)');
-            lightGrad.addColorStop(1, 'rgba(0, 0, 0, 0.25)');
-            ctx.fillStyle = lightGrad;
-            ctx.fillRect(0, 0, 640, 480);
+        <div class="protocol-box" style="background:var(--accent-soft);border-color:#f0cfc2;">
+          <h4 style="color:var(--accent-dark);">3. Les 3 règles anti-dessèchement</h4>
+          <ul style="padding-left:1.1rem;margin-top:0.3rem;display:flex;flex-direction:column;gap:0.3rem;">
+            <li>Toujours napper les pâtes et le riz d'un filet de sauce ou de jus de cuisson avant congélation.</li>
+            <li>Cuire les pâtes 1 minute de moins que le temps du paquet.</li>
+            <li>Ne jamais recongeler un plat déjà décongelé le matin.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 
-            // Ombre portée de la barquette
-            ctx.fillStyle = 'rgba(20, 12, 6, 0.45)';
-            roundRect(ctx, 114, 118, 420, 276, 36);
-            ctx.fill();
+<!-- MODALE FICHE RECETTE -->
+<div class="modal-backdrop" id="recipeModal">
+  <div class="modal-box">
+    <div class="modal-hero">
+      <img id="modalImg" src="" alt="" />
+      <button class="modal-close" id="closeModalBtn" aria-label="Fermer">✕</button>
+    </div>
+    <div class="modal-content" id="modalBody"></div>
+  </div>
+</div>
 
-            // Couvercle translucide posé à droite
-            ctx.fillStyle = 'rgba(245, 248, 252, 0.32)';
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
-            ctx.lineWidth = 2.5;
-            roundRect(ctx, 455, 130, 145, 230, 22);
-            ctx.fill();
-            ctx.stroke();
+<script>
+  const RECIPES = [
+    {
+      id: 1,
+      week: 1,
+      gridRow: 0,
+      gridCol: 0,
+      title: "Spaghetti Bolognaise Maison au Bœuf",
+      subtitle: "Spaghetti al dente, sauce tomate mijotée au bœuf haché 5 % et basilic",
+      kcal: 565,
+      protein: 38,
+      carbs: 68,
+      fat: 14,
+      starch: "Spaghetti",
+      meat: "Bœuf haché 5 %",
+      tip: "Ajouter 1 c. à soupe d'eau avant de réchauffer 2 min 45 à 750 W pour garder la sauce bien nappante.",
+      palette: ["#d9a441", "#9e2a2b", "#4a7c59"],
+      ingredients: [
+        { name: "Spaghetti secs", qty: 85, unit: "g", aisle: "Épicerie & Féculents" },
+        { name: "Bœuf haché 5 % MG", qty: 140, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Coulis de tomate nature", qty: 110, unit: "g", aisle: "Épicerie & Féculents" },
+        { name: "Oignon jaune émincé", qty: 30, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Huile d'olive & origan", qty: 5, unit: "ml", aisle: "Épicerie & Féculents" }
+      ],
+      steps: [
+        "Faire revenir l'oignon émincé et le bœuf haché 5 min à la poêle avec l'huile d'olive.",
+        "Verser le coulis de tomate, l'origan, sel et poivre ; laisser mijoter 12 min à feu doux.",
+        "Cuire les spaghetti 1 min de moins que le temps indiqué, égoutter et mélanger avec la sauce avant mise en barquette."
+      ]
+    },
+    {
+      id: 2,
+      week: 1,
+      gridRow: 0,
+      gridCol: 1,
+      title: "Poulet Rôti, Pommes de Terre & Carottes",
+      subtitle: "Cuisse de poulet dorée au four, pommes de terre fondantes et rondelles de carottes au jus",
+      kcal: 555,
+      protein: 41,
+      carbs: 54,
+      fat: 18,
+      starch: "Pommes de terre",
+      meat: "Cuisse de poulet",
+      tip: "Arroser de 2 c. à soupe de jus de cuisson avant congélation : le poulet reste ultra-tendre au micro-ondes.",
+      palette: ["#c67d3b", "#e0b458", "#d96b27"],
+      ingredients: [
+        { name: "Cuisse de poulet (sans peau)", qty: 180, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Pommes de terre à chair ferme", qty: 220, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Carottes en rondelles", qty: 60, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Bouillon de volaille", qty: 60, unit: "ml", aisle: "Épicerie & Féculents" },
+        { name: "Huile d'olive & thym", qty: 5, unit: "ml", aisle: "Épicerie & Féculents" }
+      ],
+      steps: [
+        "Disposer la cuisse de poulet, les quartiers de pommes de terre et les carottes dans un plat au four.",
+        "Arroser d'huile d'olive, de thym et de bouillon de volaille.",
+        "Enfourner 35 min à 200 °C en arrosant à mi-cuisson, puis transférer avec le jus en barquette."
+      ]
+    },
+    {
+      id: 3,
+      week: 1,
+      gridRow: 0,
+      gridCol: 2,
+      title: "Lasagnes Bolognaise Gratinées",
+      subtitle: "Feuilles de lasagnes fondantes, bœuf mijoté à la tomate, béchamel légère et emmental",
+      kcal: 590,
+      protein: 37,
+      carbs: 58,
+      fat: 22,
+      starch: "Feuilles de lasagnes",
+      meat: "Bœuf haché 5 %",
+      tip: "L'un des meilleurs plats à congeler : 3 min à 750 W suffisent pour retrouver le gratiné fondant.",
+      palette: ["#c84b31", "#e8c07d", "#f2dfc1"],
+      ingredients: [
+        { name: "Feuilles de lasagnes sèches", qty: 75, unit: "g", aisle: "Épicerie & Féculents" },
+        { name: "Bœuf haché 5 % MG", qty: 130, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Sauce tomate cuisinée", qty: 110, unit: "g", aisle: "Épicerie & Féculents" },
+        { name: "Lait demi-écrémé (béchamel)", qty: 80, unit: "ml", aisle: "Fruits, Légumes & Frais" },
+        { name: "Emmental râpé", qty: 20, unit: "g", aisle: "Fruits, Légumes & Frais" }
+      ],
+      steps: [
+        "Préparer une bolognaise rapide avec le bœuf haché et la sauce tomate (10 min).",
+        "Alterner dans un plat : sauce tomate, feuilles de lasagnes, bœuf et un voile de béchamel.",
+        "Parsemer d'emmental râpé, cuire 25 min à 190 °C et découper la part à la taille de la barquette."
+      ]
+    },
+    {
+      id: 4,
+      week: 1,
+      gridRow: 0,
+      gridCol: 3,
+      title: "Saucisses Grillées, Purée Maison & Petits Pois",
+      subtitle: "Saucisses de Toulouse dorées, purée de pommes de terre onctueuse au jus brun et petits pois",
+      kcal: 585,
+      protein: 35,
+      carbs: 56,
+      fat: 23,
+      starch: "Purée de pommes de terre",
+      meat: "Saucisses de porc",
+      tip: "Congeler la purée bien crémeuse : elle retrouve toute son onctuosité après 2 min 30 au micro-ondes.",
+      palette: ["#7f4f24", "#f3e5ab", "#52b788"],
+      ingredients: [
+        { name: "Saucisses de Toulouse (ou volaille)", qty: 135, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Pommes de terre à purée", qty: 230, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Petits pois surgelés", qty: 65, unit: "g", aisle: "Surgelés" },
+        { name: "Lait demi-écrémé", qty: 50, unit: "ml", aisle: "Fruits, Légumes & Frais" },
+        { name: "Fond de veau lié", qty: 40, unit: "ml", aisle: "Épicerie & Féculents" }
+      ],
+      steps: [
+        "Cuire les pommes de terre 20 min à l'eau bouillante puis les écraser avec le lait chaud, sel et muscade.",
+        "Dorer les saucisses à la poêle 12 min à feu moyen et déglacer avec le fond de veau.",
+        "Blanchir les petits pois 4 min et dresser purée, saucisses nappées de jus et petits pois en barquette."
+      ]
+    },
+    {
+      id: 5,
+      week: 1,
+      gridRow: 0,
+      gridCol: 4,
+      title: "Fusilli aux Boulettes de Bœuf & Sauce Tomate",
+      subtitle: "Torsades de pâtes, boulettes de bœuf tendres aux herbes et sauce tomate basilic",
+      kcal: 575,
+      protein: 39,
+      carbs: 66,
+      fat: 16,
+      starch: "Fusilli",
+      meat: "Boulettes de bœuf",
+      tip: "Les fusilli retiennent parfaitement la sauce tomate lors du réchauffage au bureau.",
+      palette: ["#e2b969", "#b5332a", "#4f772d"],
+      ingredients: [
+        { name: "Fusilli secs", qty: 85, unit: "g", aisle: "Épicerie & Féculents" },
+        { name: "Boulettes de bœuf pur bœuf", qty: 140, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Sauce tomate basilic", qty: 110, unit: "g", aisle: "Épicerie & Féculents" },
+        { name: "Parmesan râpé", qty: 12, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Huile d'olive", qty: 5, unit: "ml", aisle: "Épicerie & Féculents" }
+      ],
+      steps: [
+        "Saisir les boulettes de bœuf 6 min à la poêle puis verser la sauce tomate basilic et laisser mijoter 8 min.",
+        "Cuire les fusilli al dente (1 min de moins que le paquet) et égoutter.",
+        "Mélanger les pâtes avec la moitié de la sauce, déposer les boulettes par-dessus et saupoudrer de parmesan."
+      ]
+    },
+    {
+      id: 6,
+      week: 2,
+      gridRow: 1,
+      gridCol: 0,
+      title: "Rôti de Porc Tranché, Pommes Rissolées & Haricots Verts",
+      subtitle: "Tranches de filet de porc tendres au jus, pommes de terre dorées et haricots verts",
+      kcal: 545,
+      protein: 42,
+      carbs: 52,
+      fat: 17,
+      starch: "Pommes de terre rissolées",
+      meat: "Rôti de porc (filet)",
+      tip: "Toujours trancher le rôti avant congélation et napper de jus pour éviter qu'il ne sèche.",
+      palette: ["#b07d62", "#dda15e", "#386641"],
+      ingredients: [
+        { name: "Rôti de porc dans le filet", qty: 150, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Pommes de terre en dés", qty: 220, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Haricots verts extra-fins", qty: 65, unit: "g", aisle: "Surgelés" },
+        { name: "Jus de rôti / fond de veau", qty: 50, unit: "ml", aisle: "Épicerie & Féculents" },
+        { name: "Huile d'olive & ail", qty: 6, unit: "ml", aisle: "Épicerie & Féculents" }
+      ],
+      steps: [
+        "Rôtir le filet de porc 30 min à 190 °C avec un fond d'eau et de fond de veau.",
+        "Faire dorer les dés de pommes de terre 18 min à la poêle ou au four avec l'huile d'olive.",
+        "Cuire les haricots verts 5 min à l'eau bouillante, trancher le rôti et napper du jus de cuisson."
+      ]
+    },
+    {
+      id: 7,
+      week: 2,
+      gridRow: 1,
+      gridCol: 1,
+      title: "Hachis Parmentier Gratiné & Carottes Fondantes",
+      subtitle: "Viande de bœuf parfumée, purée gratinée dorée au four et carottes vapeur",
+      kcal: 570,
+      protein: 37,
+      carbs: 56,
+      fat: 20,
+      starch: "Purée de pommes de terre",
+      meat: "Bœuf haché 5 %",
+      tip: "Réchauffer 3 min à 750 W en laissant le couvercle posé sans le clipser.",
+      palette: ["#d4a373", "#8c3b2b", "#e76f51"],
+      ingredients: [
+        { name: "Bœuf haché 5 % MG", qty: 135, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Pommes de terre à purée", qty: 220, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Carottes en rondelles", qty: 65, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Emmental râpé", qty: 18, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Lait demi-écrémé & oignon", qty: 50, unit: "ml", aisle: "Fruits, Légumes & Frais" }
+      ],
+      steps: [
+        "Faire revenir le bœuf haché avec l'oignon émincé, un trait de bouillon et du persil.",
+        "Réaliser une purée onctueuse avec les pommes de terre cuites et le lait chaud.",
+        "Monter la viande au fond, la purée et l'emmental dessus, gratiner 15 min à 200 °C et ajouter les carottes cuites."
+      ]
+    },
+    {
+      id: 8,
+      week: 2,
+      gridRow: 1,
+      gridCol: 2,
+      title: "Poulet au Curry Doux, Riz Basmati & Pain Naan",
+      subtitle: "Aiguillettes de poulet mijotées dans une sauce curry-coco onctueuse, riz parfumé et mini naan",
+      kcal: 590,
+      protein: 42,
+      carbs: 69,
+      fat: 15,
+      starch: "Riz basmati & Naan",
+      meat: "Filet de poulet",
+      tip: "Humidifier légèrement le riz avec 1 c. à soupe d'eau avant de passer la barquette au micro-ondes.",
+      palette: ["#e09f3e", "#f4f1de", "#d4a373"],
+      ingredients: [
+        { name: "Filet ou aiguillettes de poulet", qty: 150, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Riz basmati sec", qty: 75, unit: "g", aisle: "Épicerie & Féculents" },
+        { name: "Mini pain naan nature", qty: 35, unit: "g", aisle: "Épicerie & Féculents" },
+        { name: "Lait de coco léger", qty: 85, unit: "ml", aisle: "Épicerie & Féculents" },
+        { name: "Curry doux & oignon", qty: 6, unit: "g", aisle: "Épicerie & Féculents" }
+      ],
+      steps: [
+        "Couper le poulet en dés, le dorer 5 min à la poêle avec l'oignon et le curry doux.",
+        "Verser le lait de coco léger et laisser mijoter 8 min jusqu'à obtenir une sauce nappante.",
+        "Cuire le riz basmati 10 min, dresser le riz, le poulet au curry et glisser le quartier de naan sur le côté."
+      ]
+    },
+    {
+      id: 9,
+      week: 2,
+      gridRow: 1,
+      gridCol: 3,
+      title: "Sauté de Bœuf & Pommes de Terre Façon Campagnarde",
+      subtitle: "Morceaux de bœuf tendres mijotés au jus corsé avec pommes de terre dorées et champignons",
+      kcal: 550,
+      protein: 40,
+      carbs: 53,
+      fat: 18,
+      starch: "Pommes de terre",
+      meat: "Sauté de bœuf",
+      tip: "Plus ce plat est réchauffé, plus la viande est fondante.",
+      palette: ["#6f4e37", "#dda15e", "#8d6e63"],
+      ingredients: [
+        { name: "Bœuf à braiser ou rumsteck", qty: 150, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Pommes de terre grenailles", qty: 230, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Champignons de Paris", qty: 60, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Bouillon de bœuf", qty: 80, unit: "ml", aisle: "Épicerie & Féculents" },
+        { name: "Huile d'olive & oignon", qty: 6, unit: "ml", aisle: "Épicerie & Féculents" }
+      ],
+      steps: [
+        "Saisir les cubes de bœuf à feu vif 4 min avec l'oignon émincé.",
+        "Ajouter les pommes de terre coupées en quartiers, les champignons et le bouillon de bœuf.",
+        "Couvrir et laisser mijoter 25 min à feu doux jusqu'à ce que les pommes de terre soient fondantes."
+      ]
+    },
+    {
+      id: 10,
+      week: 2,
+      gridRow: 1,
+      gridCol: 4,
+      title: "Escalope de Poulet Panée Crousti & Pommes de Terre Persillées",
+      subtitle: "Escalope de volaille dorée au four et pommes de terre fondantes aux herbes",
+      kcal: 580,
+      protein: 41,
+      carbs: 60,
+      fat: 18,
+      starch: "Pommes de terre",
+      meat: "Escalope de poulet panée",
+      tip: "Cuire l'escalope au four plutôt qu'à la friture : elle garde une panure agréable après décongélation.",
+      palette: ["#d9822b", "#e9d8a6", "#6b9080"],
+      ingredients: [
+        { name: "Escalope de poulet panée (four)", qty: 145, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Pommes de terre en cubes", qty: 230, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Crème légère 15 %", qty: 30, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Ciboulette & persil", qty: 4, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Huile d'olive", qty: 5, unit: "ml", aisle: "Épicerie & Féculents" }
+      ],
+      steps: [
+        "Enfourner l'escalope panée 15 min à 200 °C jusqu'à ce qu'elle soit bien dorée.",
+        "Cuire les cubes de pommes de terre à l'eau ou à la vapeur 15 min puis les enrober de crème légère et d'herbes.",
+        "Assembler côte à côte dans la barquette sans recouvrir l'escalope de sauce."
+      ]
+    },
+    {
+      id: 11,
+      week: 3,
+      gridRow: 2,
+      gridCol: 0,
+      title: "Chili Con Carne au Bœuf & Riz Blanc Parfumé",
+      subtitle: "Bœuf haché mijoté aux haricots rouges, épices douces, tomate et riz long grain",
+      kcal: 585,
+      protein: 40,
+      carbs: 72,
+      fat: 14,
+      starch: "Riz blanc & Haricots rouges",
+      meat: "Bœuf haché 5 %",
+      tip: "Le duo riz + haricots rouges garantit une satiété maximale jusqu'au dîner.",
+      palette: ["#9b2226", "#f8f9fa", "#588157"],
+      ingredients: [
+        { name: "Bœuf haché 5 % MG", qty: 135, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Riz long grain sec", qty: 75, unit: "g", aisle: "Épicerie & Féculents" },
+        { name: "Haricots rouges cuits (égouttés)", qty: 70, unit: "g", aisle: "Épicerie & Féculents" },
+        { name: "Pulpe de tomate", qty: 100, unit: "g", aisle: "Épicerie & Féculents" },
+        { name: "Cumin, paprika doux & oignon", qty: 6, unit: "g", aisle: "Épicerie & Féculents" }
+      ],
+      steps: [
+        "Faire revenir l'oignon et le bœuf haché 5 min avec le cumin et le paprika.",
+        "Ajouter la pulpe de tomate et les haricots rouges rincés ; mijoter 15 min à feu doux.",
+        "Cuire le riz 10 min, égoutter et dresser le riz d'un côté de la barquette et le chili de l'autre."
+      ]
+    },
+    {
+      id: 12,
+      week: 3,
+      gridRow: 2,
+      gridCol: 1,
+      title: "Cuisse de Canard Confite, Pommes Sarladaises & Chou Rouge",
+      subtitle: "Cuisse de canard dégraissée croustillante, lamelles de pommes de terre dorées et chou rouge braisé",
+      kcal: 595,
+      protein: 38,
+      carbs: 52,
+      fat: 25,
+      starch: "Pommes de terre sarladaises",
+      meat: "Cuisse de canard confite",
+      tip: "Retirer l'excédent de graisse de canard avant cuisson au four pour rester sous les 600 kcal.",
+      palette: ["#8c4a27", "#e6be8a", "#6d2e46"],
+      ingredients: [
+        { name: "Cuisse de canard confite (dégraissée)", qty: 145, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Pommes de terre en rondelles", qty: 220, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Chou rouge cuit braisé", qty: 65, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Ail haché & persil", qty: 5, unit: "g", aisle: "Fruits, Légumes & Frais" }
+      ],
+      steps: [
+        "Retirer la peau et la graisse visible de la cuisse de canard, puis la dorer 20 min au four à 200 °C.",
+        "Faire rissoler les rondelles de pommes de terre à la poêle avec 1 c. à café de graisse de canard, ail et persil.",
+        "Dresser les pommes sarladaises, la cuisse de canard et le chou rouge braisé dans la barquette."
+      ]
+    },
+    {
+      id: 13,
+      week: 3,
+      gridRow: 2,
+      gridCol: 2,
+      title: "Steak Haché Façon Bouchère, Frites au Four & Sauce Poivre",
+      subtitle: "Steak haché juteux 5 %, frites dorées au four sans friture et sauce au poivre onctueuse",
+      kcal: 575,
+      protein: 38,
+      carbs: 58,
+      fat: 19,
+      starch: "Frites au four",
+      meat: "Steak haché 5 %",
+      tip: "La sauce au poivre garde le steak haché bien moelleux au réchauffage.",
+      palette: ["#5c3d2e", "#e9c46a", "#b08968"],
+      ingredients: [
+        { name: "Steak haché pur bœuf 5 % MG", qty: 150, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Frites spéciales four (surgelées)", qty: 200, unit: "g", aisle: "Surgelés" },
+        { name: "Crème liquide légère 15 %", qty: 45, unit: "ml", aisle: "Fruits, Légumes & Frais" },
+        { name: "Fond de veau & poivre concassé", qty: 40, unit: "ml", aisle: "Épicerie & Féculents" }
+      ],
+      steps: [
+        "Enfourner les frites 20 min à 210 °C sur plaque perforée.",
+        "Saisir le steak haché 2 min par face (garder rosé à cœur car il finira de cuire au réchauffage).",
+        "Déglacer la poêle avec le fond de veau, le poivre et la crème légère, puis napper le steak."
+      ]
+    },
+    {
+      id: 14,
+      week: 3,
+      gridRow: 2,
+      gridCol: 3,
+      title: "Médaillons de Filet Mignon, Spätzle & Sauce Moutarde",
+      subtitle: "Filet mignon de porc fondant, pâtes alsaciennes spätzle dorées et sauce crème-moutarde",
+      kcal: 580,
+      protein: 41,
+      carbs: 62,
+      fat: 17,
+      starch: "Spätzle",
+      meat: "Filet mignon de porc",
+      tip: "Les spätzle supportent remarquablement bien la congélation et le micro-ondes sans coller.",
+      palette: ["#f3d58d", "#a47148", "#d4a373"],
+      ingredients: [
+        { name: "Filet mignon de porc en médaillons", qty: 145, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Spätzle frais", qty: 170, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Crème légère 15 %", qty: 45, unit: "ml", aisle: "Fruits, Légumes & Frais" },
+        { name: "Moutarde à l'ancienne", qty: 10, unit: "g", aisle: "Épicerie & Féculents" },
+        { name: "Huile d'olive", qty: 5, unit: "ml", aisle: "Épicerie & Féculents" }
+      ],
+      steps: [
+        "Dorer les médaillons de filet mignon 4 min par face à la poêle, puis déglacer avec crème légère et moutarde.",
+        "Faire revenir les spätzle 5 min à la poêle avec un filet d'huile d'olive.",
+        "Réunir les spätzle et les médaillons nappés de sauce moutarde dans la barquette."
+      ]
+    },
+    {
+      id: 15,
+      week: 3,
+      gridRow: 2,
+      gridCol: 4,
+      title: "Bœuf Bourguignon Traditionnel, Pommes de Terre & Carottes",
+      subtitle: "Morceaux de bœuf fondants mijotés au jus corsé avec pommes de terre vapeur et rondelles de carottes",
+      kcal: 555,
+      protein: 43,
+      carbs: 51,
+      fat: 18,
+      starch: "Pommes de terre",
+      meat: "Bœuf bourguignon",
+      tip: "Le roi du batch cooking : la sauce liée enrobe les pommes de terre et reste parfaite après décongélation.",
+      palette: ["#582f0e", "#ddb892", "#e07a5f"],
+      ingredients: [
+        { name: "Bœuf bourguignon (paleron/macreuse)", qty: 155, unit: "g", aisle: "Boucherie & Volaille" },
+        { name: "Pommes de terre à chair ferme", qty: 210, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Carottes en rondelles", qty: 65, unit: "g", aisle: "Fruits, Légumes & Frais" },
+        { name: "Bouillon de bœuf & concentré tomate", qty: 90, unit: "ml", aisle: "Épicerie & Féculents" },
+        { name: "Oignon, thym & laurier", qty: 30, unit: "g", aisle: "Fruits, Légumes & Frais" }
+      ],
+      steps: [
+        "Dorer les morceaux de bœuf 5 min avec l'oignon émincé dans une cocotte.",
+        "Ajouter le bouillon de bœuf, 1 c. à café de concentré de tomate, thym, laurier et les carottes ; mijoter 45 min.",
+        "Ajouter les pommes de terre en cubes les 20 dernières minutes puis répartir viande, légumes et sauce en barquette."
+      ]
+    }
+  ];
 
-            // Corps de la barquette en verre/plastique meal-prep
-            const boxGrad = ctx.createLinearGradient(105, 102, 525, 382);
-            boxGrad.addColorStop(0, 'rgba(245, 249, 255, 0.88)');
-            boxGrad.addColorStop(1, 'rgba(215, 224, 234, 0.85)');
-            ctx.fillStyle = boxGrad;
-            roundRect(ctx, 105, 102, 420, 276, 34);
-            ctx.fill();
+  // Génération statique immédiate des 15 vignettes (découpe 5x3 de la photo source + secours photoréaliste local instantané)
+  const STATIC_PHOTOS = {};
+  const GRID_IMAGE_SRC = "watermarked_img_17335986442964618476.jpg";
 
-            // Intérieur de la barquette (clip)
-            ctx.save();
-            roundRect(ctx, 122, 118, 386, 242, 24);
-            ctx.clip();
+  function buildFallbackPhotoDataURL(recipe) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 640;
+    canvas.height = 480;
+    const ctx = canvas.getContext("2d");
 
-            // Fond sauce / jus
-            ctx.fillStyle = '#3d2618';
-            ctx.fillRect(122, 118, 386, 242);
+    // Plan de travail bois réaliste
+    const woodGrad = ctx.createLinearGradient(0, 0, 640, 480);
+    woodGrad.addColorStop(0, "#7c583c");
+    woodGrad.addColorStop(0.5, "#68472e");
+    woodGrad.addColorStop(1, "#4f3420");
+    ctx.fillStyle = woodGrad;
+    ctx.fillRect(0, 0, 640, 480);
 
-            // Rendu culinaire spécifique à chacun des 15 plats
-            drawDishTexture(ctx, recipe.id);
+    // Veinage bois subtil
+    ctx.strokeStyle = "rgba(35, 20, 10, 0.16)";
+    ctx.lineWidth = 2;
+    for (let y = 18; y < 480; y += 22) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.bezierCurveTo(210, y + 6, 430, y - 6, 640, y + 2);
+      ctx.stroke();
+    }
 
-            // Reflet intérieur du rebord
-            const innerShadow = ctx.createLinearGradient(122, 118, 122, 360);
-            innerShadow.addColorStop(0, 'rgba(0,0,0,0.28)');
-            innerShadow.addColorStop(0.15, 'rgba(0,0,0,0)');
-            innerShadow.addColorStop(0.85, 'rgba(0,0,0,0)');
-            innerShadow.addColorStop(1, 'rgba(0,0,0,0.32)');
-            ctx.fillStyle = innerShadow;
-            ctx.fillRect(122, 118, 386, 242);
-            ctx.restore();
+    // Lumière fenêtre douce
+    const lightGrad = ctx.createRadialGradient(140, 90, 20, 320, 240, 460);
+    lightGrad.addColorStop(0, "rgba(255, 248, 235, 0.28)");
+    lightGrad.addColorStop(1, "rgba(0, 0, 0, 0.25)");
+    ctx.fillStyle = lightGrad;
+    ctx.fillRect(0, 0, 640, 480);
 
-            // Rebord brillant de la barquette
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
-            ctx.lineWidth = 3;
-            roundRect(ctx, 114, 110, 402, 259, 28);
-            ctx.stroke();
+    // Ombre portée de la barquette
+    ctx.fillStyle = "rgba(18, 12, 8, 0.42)";
+    ctx.beginPath();
+    ctx.roundRect(104, 108, 444, 290, 34);
+    ctx.fill();
 
-            // Étiquette adhésive blanche sur le devant de la barquette
-            ctx.fillStyle = '#faf8f3';
-            ctx.strokeStyle = '#cbd5e1';
-            ctx.lineWidth = 1.5;
-            roundRect(ctx, 195, 348, 240, 24, 5);
-            ctx.fill();
-            ctx.stroke();
+    // Barquette transparente
+    ctx.fillStyle = "rgba(242, 246, 248, 0.88)";
+    ctx.beginPath();
+    ctx.roundRect(96, 96, 448, 286, 32);
+    ctx.fill();
 
-            ctx.fillStyle = '#1e293b';
-            ctx.font = 'bold 11px Inter, sans-serif';
-            ctx.textAlign = 'center';
-            const shortLabel = recipe.title.length > 32 ? recipe.title.slice(0, 30) + '…' : recipe.title;
-            ctx.fillText(shortLabel, 315, 364);
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.95)";
+    ctx.lineWidth = 5;
+    ctx.stroke();
 
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-            fallbackDataUrlCache[recipe.id] = dataUrl;
-            return dataUrl;
-        }
+    // Intérieur du plat
+    ctx.save();
+    ctx.beginPath();
+    ctx.roundRect(114, 114, 412, 246, 22);
+    ctx.clip();
 
-        function roundRect(ctx, x, y, w, h, r) {
-            ctx.beginPath();
-            ctx.moveTo(x + r, y);
-            ctx.arcTo(x + w, y, x + w, y + h, r);
-            ctx.arcTo(x + w, y + h, x, y + h, r);
-            ctx.arcTo(x, y + h, x, y, r);
-            ctx.arcTo(x, y, x + w, y, r);
-            ctx.closePath();
-        }
+    ctx.fillStyle = "#efe9dd";
+    ctx.fillRect(114, 114, 412, 246);
 
-        function drawDishTexture(ctx, id) {
-            const rand = (seed) => {
-                const x = Math.sin(id * 97 + seed * 31) * 10000;
-                return x - Math.floor(x);
-            };
+    const [cStarch, cMeat, cAccent] = recipe.palette;
 
-            // Couleurs dominantes selon le plat (féculents, viande, sauce, touche verte)
-            if (id === 1) {
-                // Spaghetti bolognaise
-                ctx.fillStyle = '#f3d48b';
-                ctx.fillRect(122, 118, 386, 242);
-                ctx.strokeStyle = '#d9a74a';
-                ctx.lineWidth = 4;
-                for (let i = 0; i < 65; i++) {
-                    ctx.beginPath();
-                    ctx.moveTo(130 + rand(i) * 360, 125 + rand(i + 1) * 220);
-                    ctx.quadraticCurveTo(310, 230, 140 + rand(i + 2) * 350, 130 + rand(i + 3) * 210);
-                    ctx.stroke();
-                }
-                ctx.fillStyle = '#9e2a1c';
-                ctx.beginPath();
-                ctx.ellipse(315, 235, 135, 85, 0, 0, Math.PI * 2);
-                ctx.fill();
-                // Parmesan & basilic
-                ctx.fillStyle = '#fef3c7';
-                for (let i = 0; i < 40; i++) {
-                    ctx.fillRect(220 + rand(i * 3) * 180, 180 + rand(i * 5) * 110, 5, 3);
-                }
-                ctx.fillStyle = '#2d6a4f';
-                ctx.beginPath();
-                ctx.ellipse(315, 225, 18, 10, 0.4, 0, Math.PI * 2);
-                ctx.fill();
-            } else if (id === 2 || id === 12) {
-                // Cuisse de poulet ou canard + pommes de terre + carottes/chou
-                ctx.fillStyle = '#5c3419';
-                ctx.fillRect(122, 118, 386, 242);
-                // Pommes de terre dorées
-                for (let i = 0; i < 24; i++) {
-                    ctx.fillStyle = i % 2 === 0 ? '#e3a84b' : '#c9852c';
-                    ctx.beginPath();
-                    ctx.ellipse(160 + rand(i) * 310, 150 + rand(i + 2) * 180, 26, 18, rand(i) * 3, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                if (id === 2) {
-                    // Carottes
-                    ctx.fillStyle = '#ea580c';
-                    for (let i = 0; i < 10; i++) {
-                        ctx.beginPath();
-                        ctx.arc(410 + rand(i) * 65, 170 + rand(i + 4) * 130, 14, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                } else {
-                    // Chou rouge
-                    ctx.fillStyle = '#6b2158';
-                    ctx.fillRect(395, 125, 105, 225);
-                }
-                // Cuisse dorée
-                ctx.fillStyle = id === 2 ? '#b86223' : '#7c3416';
-                ctx.beginPath();
-                ctx.ellipse(275, 235, 82, 48, -0.25, 0, Math.PI * 2);
-                ctx.fill();
-            } else if (id === 3 || id === 7) {
-                // Lasagnes ou Hachis parmentier gratiné
-                ctx.fillStyle = id === 3 ? '#c2410c' : '#78350f';
-                ctx.fillRect(122, 118, 386, 242);
-                const gratinGrad = ctx.createLinearGradient(140, 130, 480, 340);
-                gratinGrad.addColorStop(0, '#fde68a');
-                gratinGrad.addColorStop(0.5, '#f59e0b');
-                gratinGrad.addColorStop(1, '#b45309');
-                ctx.fillStyle = gratinGrad;
-                roundRect(ctx, 145, 138, id === 7 ? 245 : 340, 200, 18);
-                ctx.fill();
-                if (id === 7) {
-                    // Duo carottes-courgettes à droite
-                    for (let i = 0; i < 16; i++) {
-                        ctx.fillStyle = i % 2 === 0 ? '#f97316' : '#4d7c0f';
-                        ctx.fillRect(405 + rand(i) * 75, 145 + rand(i + 2) * 180, 22, 16);
-                    }
-                }
-            } else if (id === 4) {
-                // Saucisses, purée & petits pois
-                ctx.fillStyle = '#fef3c7';
-                roundRect(ctx, 135, 130, 240, 215, 30);
-                ctx.fill();
-                ctx.fillStyle = '#3f7d20';
-                ctx.fillRect(370, 130, 130, 215);
-                for (let i = 0; i < 55; i++) {
-                    ctx.fillStyle = '#65a30d';
-                    ctx.beginPath();
-                    ctx.arc(380 + rand(i) * 110, 140 + rand(i + 1) * 195, 7, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                // 2 saucisses
-                ctx.fillStyle = '#6b341a';
-                ctx.beginPath();
-                ctx.ellipse(295, 225, 75, 22, -0.35, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.beginPath();
-                ctx.ellipse(315, 255, 75, 22, -0.35, 0, Math.PI * 2);
-                ctx.fill();
-            } else if (id === 5 || id === 14) {
-                // Fusilli boulettes ou Coquillettes filet mignon moutarde
-                ctx.fillStyle = '#f6d57e';
-                ctx.fillRect(122, 118, 386, 242);
-                for (let i = 0; i < 70; i++) {
-                    ctx.fillStyle = i % 2 === 0 ? '#eab308' : '#fde047';
-                    ctx.beginPath();
-                    ctx.ellipse(140 + rand(i) * 345, 135 + rand(i + 3) * 205, 14, 7, rand(i) * 3, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                if (id === 5) {
-                    ctx.fillStyle = '#b91c1c';
-                    ctx.beginPath();
-                    ctx.ellipse(315, 235, 125, 75, 0, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.fillStyle = '#6b2717';
-                    [[-55, -15], [10, -25], [60, 10], [-15, 25]].forEach(([dx, dy]) => {
-                        ctx.beginPath();
-                        ctx.arc(315 + dx, 235 + dy, 24, 0, Math.PI * 2);
-                        ctx.fill();
-                    });
-                } else {
-                    ctx.fillStyle = '#d6b97b';
-                    ctx.beginPath();
-                    ctx.ellipse(250, 235, 72, 46, -0.2, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.beginPath();
-                    ctx.ellipse(310, 260, 68, 44, -0.2, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            } else if (id === 6 || id === 9 || id === 15) {
-                // Rôti de porc / Dés de bœuf aubergines / Bœuf bourguignon
-                ctx.fillStyle = id === 15 ? '#3b1d14' : '#4e321e';
-                ctx.fillRect(122, 118, 386, 242);
-                for (let i = 0; i < 22; i++) {
-                    ctx.fillStyle = '#e0a94c';
-                    ctx.beginPath();
-                    ctx.roundRect(150 + rand(i) * 310, 140 + rand(i + 2) * 185, 32, 26, 8);
-                    ctx.fill();
-                }
-                for (let i = 0; i < 14; i++) {
-                    ctx.fillStyle = id === 6 ? '#c48f6a' : '#5b2a1d';
-                    ctx.beginPath();
-                    ctx.roundRect(160 + rand(i + 5) * 290, 145 + rand(i + 7) * 180, 38, 28, 10);
-                    ctx.fill();
-                }
-                if (id === 6) {
-                    ctx.fillStyle = '#3f7d20';
-                    ctx.fillRect(390, 130, 105, 215);
-                } else if (id === 15) {
-                    ctx.fillStyle = '#ea580c';
-                    for (let i = 0; i < 10; i++) {
-                        ctx.beginPath();
-                        ctx.arc(180 + rand(i * 2) * 260, 155 + rand(i * 4) * 165, 13, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                }
-            } else if (id === 8 || id === 11) {
-                // Poulet curry + riz + naan OU Chili con carne + riz
-                ctx.fillStyle = id === 8 ? '#d97706' : '#8c2318';
-                ctx.fillRect(122, 118, 210, 242);
-                ctx.fillStyle = '#f8fafc';
-                ctx.fillRect(320, 118, 188, 242);
-                if (id === 8) {
-                    ctx.fillStyle = '#e7c996';
-                    ctx.beginPath();
-                    ctx.moveTo(410, 125);
-                    ctx.lineTo(500, 165);
-                    ctx.lineTo(445, 250);
-                    ctx.closePath();
-                    ctx.fill();
-                }
-            } else if (id === 10 || id === 13) {
-                // Escalope panée + pommes persillées OU Steak haché + frites au four
-                ctx.fillStyle = '#fde68a';
-                ctx.fillRect(325, 118, 183, 242);
-                if (id === 13) {
-                    for (let i = 0; i < 28; i++) {
-                        ctx.fillStyle = i % 2 === 0 ? '#f59e0b' : '#fbbf24';
-                        ctx.fillRect(335 + rand(i) * 140, 135 + rand(i + 1) * 200, 48, 9);
-                    }
-                    ctx.fillStyle = '#4a2c1d';
-                    ctx.beginPath();
-                    ctx.ellipse(235, 240, 76, 56, 0, 0, Math.PI * 2);
-                    ctx.fill();
-                } else {
-                    ctx.fillStyle = '#c87328';
-                    roundRect(ctx, 145, 155, 185, 165, 36);
-                    ctx.fill();
-                }
-            }
-        }
+    // Zone féculents (moitié droite)
+    ctx.fillStyle = cStarch;
+    for (let i = 0; i < 65; i++) {
+      const rx = 315 + ((i * 37) % 195);
+      const ry = 135 + ((i * 53) % 205);
+      ctx.beginPath();
+      ctx.ellipse(rx, ry, 24, 15, (i % 5) * 0.4, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
-        // ==================== CONSTRUCTEUR DU VISUEL DE BARQUETTE ====================
-        function buildPhotoViewportHTML(recipe, isModal = false) {
-            // Chaque cellule fait 20% de largeur (5 colonnes) et 33.333% de hauteur (3 rangées)
-            // En agrandissant l'image à 500% x 300%, décaler de -col * 20% et -row * 33.3333% isole exactement la barquette
-            const translateX = -(recipe.col * 20);
-            const translateY = -(recipe.row * 33.333333);
+    // Zone viande & sauce (moitié gauche)
+    ctx.fillStyle = cMeat;
+    ctx.beginPath();
+    ctx.ellipse(235, 238, 115, 92, -0.15, 0, Math.PI * 2);
+    ctx.fill();
 
-            const badgesHTML = isModal ? '' : `
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/25 pointer-events-none"></div>
-                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-bold bg-white/95 text-slateDark shadow-sm">
-                    Semaine ${recipe.week} • Plat #${recipe.id}
-                </span>
-                <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-extrabold bg-slateDark/90 text-amber-300 shadow-sm">
-                    ${recipe.kcal} kcal
-                </span>
-                <span class="absolute bottom-3 right-3 inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/95 text-slateDark text-[11px] font-bold shadow">
-                    <span>Fiche & Calculateur</span>
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                </span>
-            `;
+    for (let j = 0; j < 26; j++) {
+      const mx = 155 + ((j * 29) % 155);
+      const my = 160 + ((j * 41) % 155);
+      ctx.fillStyle = j % 2 === 0 ? cMeat : cAccent;
+      ctx.beginPath();
+      ctx.ellipse(mx, my, 22, 16, j * 0.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
-            return `
-                <div class="sprite-viewport">
-                    <img
-                        src="${SPRITE_IMAGE_SRC}"
-                        alt="${recipe.title}"
-                        class="sprite-crop-img ${isModal ? '' : 'group-hover:scale-[1.04]'}"
-                        style="transform: translate(${translateX}%, ${translateY}%);"
-                        onerror="handleSpriteImageError(this, ${recipe.id})"
-                    />
-                    ${badgesHTML}
-                </div>
-            `;
-        }
+    // Reflets de sauce / brillance culinaire
+    ctx.fillStyle = "rgba(255, 255, 255, 0.22)";
+    for (let k = 0; k < 18; k++) {
+      const gx = 160 + ((k * 43) % 310);
+      const gy = 150 + ((k * 31) % 170);
+      ctx.beginPath();
+      ctx.ellipse(gx, gy, 9, 4, 0.4, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
-        function handleSpriteImageError(imgEl, recipeId) {
-            const recipe = RECIPES.find(r => r.id === recipeId);
-            if (!recipe) return;
-            imgEl.onerror = null;
-            imgEl.style.width = '100%';
-            imgEl.style.height = '100%';
-            imgEl.style.transform = 'none';
-            imgEl.src = getPhotorealisticFallbackDataUrl(recipe);
-        }
+    ctx.restore();
 
-        // ==================== ÉTAT DE L'APPLICATION ====================
-        let currentWeekFilter = 'all';
-        let globalPortions = 1;
-        const dishPortions = {};
-        let currentShoppingWeek = 1;
-        let currentPlanWeek = 1;
-        let activeModalRecipe = null;
-        let activeModalPortions = 1;
-        let checkedItems = {};
+    // Étiquette ruban de masquage sur le rebord avant
+    ctx.fillStyle = "#f4eedc";
+    ctx.fillRect(175, 360, 290, 22);
+    ctx.fillStyle = "#2b2f2d";
+    ctx.font = "bold 13px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`#${recipe.id} • ${recipe.starch} & ${recipe.meat}`, 320, 375);
 
+    return canvas.toDataURL("image/jpeg", 0.9);
+  }
+
+  // Initialise immédiatement les 15 images de secours en mémoire (0 ms, synchrone)
+  RECIPES.forEach(r => {
+    STATIC_PHOTOS[r.id] = buildFallbackPhotoDataURL(r);
+  });
+
+  // Découpe automatiquement la grille photographique réelle 5x3 si l'image source est chargée
+  function sliceRealGridPhotos() {
+    const img = new Image();
+    img.onload = () => {
+      if (!img.naturalWidth || !img.naturalHeight) return;
+      const cellW = Math.floor(img.naturalWidth / 5);
+      const cellH = Math.floor(img.naturalHeight / 3);
+
+      RECIPES.forEach(r => {
+        const c = document.createElement("canvas");
+        c.width = cellW;
+        c.height = cellH;
+        const ctx = c.getContext("2d");
+        ctx.drawImage(
+          img,
+          r.gridCol * cellW,
+          r.gridRow * cellH,
+          cellW,
+          cellH,
+          0,
+          0,
+          cellW,
+          cellH
+        );
         try {
-            const saved = localStorage.getItem('batchCookingChecked_v4');
-            if (saved) checkedItems = JSON.parse(saved);
+          STATIC_PHOTOS[r.id] = c.toDataURL("image/jpeg", 0.92);
+          const domImg = document.getElementById(`recipe-img-${r.id}`);
+          if (domImg) domImg.src = STATIC_PHOTOS[r.id];
         } catch (e) {
-            checkedItems = {};
+          // Conserve le rendu local statique en cas de restriction CORS
         }
+      });
+    };
+    img.src = GRID_IMAGE_SRC;
+  }
 
-        function saveCheckedState() {
-            try {
-                localStorage.setItem('batchCookingChecked_v4', JSON.stringify(checkedItems));
-            } catch (e) {
-                // Ignore
-            }
+  // Rendu des 15 recettes
+  let currentWeekFilter = "all";
+
+  function renderRecipes() {
+    const container = document.getElementById("recipesContainer");
+    const filtered = currentWeekFilter === "all"
+      ? RECIPES
+      : RECIPES.filter(r => String(r.week) === currentWeekFilter);
+
+    container.innerHTML = filtered.map(r => `
+      <article class="recipe-row-card">
+        <div class="photo-column">
+          <img id="recipe-img-${r.id}" src="${STATIC_PHOTOS[r.id]}" alt="${r.title}" loading="eager" />
+          <div class="photo-top-badges">
+            <span class="week-tag">Semaine ${r.week} • Plat #${r.id}</span>
+            <span class="kcal-tag">${r.kcal} kcal</span>
+          </div>
+          <div class="photo-bottom-caption">
+            <span>🥔 ${r.starch}</span>
+            <span>🥩 ${r.meat}</span>
+          </div>
+        </div>
+
+        <div class="recipe-body">
+          <div class="recipe-header">
+            <div>
+              <h2 class="recipe-title">${r.title}</h2>
+              <p class="recipe-sub">${r.subtitle}</p>
+            </div>
+            <div class="macro-pills">
+              <span class="macro-pill">Protéines : <strong>${r.protein} g</strong></span>
+              <span class="macro-pill">Glucides : <strong>${r.carbs} g</strong></span>
+              <span class="macro-pill">Lipides : <strong>${r.fat} g</strong></span>
+            </div>
+          </div>
+
+          <div class="recipe-details-grid">
+            <div>
+              <div class="sub-heading">Ingrédients (1 barquette)</div>
+              <ul class="ing-list">
+                ${r.ingredients.map(ing => `
+                  <li>
+                    <span>${ing.name}</span>
+                    <span>${ing.qty} ${ing.unit}</span>
+                  </li>
+                `).join("")}
+              </ul>
+            </div>
+
+            <div>
+              <div class="sub-heading">Préparation Express</div>
+              <ol class="steps-list">
+                ${r.steps.map(s => `<li>${s}</li>`).join("")}
+              </ol>
+            </div>
+          </div>
+
+          <div class="recipe-footer-bar">
+            <span>💡 <strong>Astuce Bureau :</strong> ${r.tip}</span>
+            <button class="btn-modal" onclick="openRecipeModal(${r.id})">Fiche &amp; Portions (1–6)</button>
+          </div>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  // Modale avec calculateur de portions (1 à 6 barquettes)
+  let activeModalRecipe = null;
+  let activePortions = 1;
+
+  function openRecipeModal(id) {
+    activeModalRecipe = RECIPES.find(r => r.id === id);
+    activePortions = 1;
+    if (!activeModalRecipe) return;
+
+    document.getElementById("modalImg").src = STATIC_PHOTOS[activeModalRecipe.id];
+    document.getElementById("modalImg").alt = activeModalRecipe.title;
+    renderModalBody();
+    document.getElementById("recipeModal").classList.add("open");
+  }
+
+  function setPortions(n) {
+    activePortions = n;
+    renderModalBody();
+  }
+
+  function renderModalBody() {
+    const r = activeModalRecipe;
+    const body = document.getElementById("modalBody");
+    body.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;">
+        <div>
+          <span style="font-size:0.8rem;font-weight:700;color:var(--accent);">SEMAINE ${r.week} • PLAT #${r.id}</span>
+          <h2 style="font-size:1.45rem;margin-top:0.15rem;">${r.title}</h2>
+          <p style="color:var(--muted);font-size:0.92rem;">${r.subtitle}</p>
+        </div>
+        <div style="background:var(--accent-soft);color:var(--accent-dark);font-weight:800;padding:0.45rem 0.85rem;border-radius:10px;">
+          ${r.kcal} kcal / barquette
+        </div>
+      </div>
+
+      <div class="portion-bar">
+        <strong>Calculateur de batch cooking (nombre de barquettes) :</strong>
+        <div class="portion-btns">
+          ${[1, 2, 3, 4, 5, 6].map(n => `
+            <button class="portion-btn ${activePortions === n ? "active" : ""}" onclick="setPortions(${n})">${n}</button>
+          `).join("")}
+        </div>
+      </div>
+
+      <div class="recipe-details-grid" style="margin-top:0.5rem;">
+        <div>
+          <div class="sub-heading">Quantités pour ${activePortions} barquette${activePortions > 1 ? "s" : ""}</div>
+          <ul class="ing-list">
+            ${r.ingredients.map(ing => `
+              <li>
+                <span>${ing.name}</span>
+                <span>${ing.qty * activePortions} ${ing.unit}</span>
+              </li>
+            `).join("")}
+          </ul>
+        </div>
+        <div>
+          <div class="sub-heading">Étapes de préparation</div>
+          <ol class="steps-list">
+            ${r.steps.map(s => `<li>${s}</li>`).join("")}
+          </ol>
+          <div class="protocol-box" style="margin-top:1rem;">
+            <h4>Réchauffage au bureau</h4>
+            <p>${r.tip}</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  document.getElementById("closeModalBtn").addEventListener("click", () => {
+    document.getElementById("recipeModal").classList.remove("open");
+  });
+  document.getElementById("recipeModal").addEventListener("click", e => {
+    if (e.target.id === "recipeModal") {
+      document.getElementById("recipeModal").classList.remove("open");
+    }
+  });
+
+  // Liste de courses interactive (localStorage)
+  const STORAGE_KEY = "batch_cooking_shop_v3";
+  let checkedItems = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+
+  function getShoppingByWeek(weekNum) {
+    const weekRecipes = RECIPES.filter(r => r.week === Number(weekNum));
+    const grouped = {};
+
+    weekRecipes.forEach(r => {
+      r.ingredients.forEach(ing => {
+        if (!grouped[ing.aisle]) grouped[ing.aisle] = {};
+        const key = `${ing.name}__${ing.unit}`;
+        if (!grouped[ing.aisle][key]) {
+          grouped[ing.aisle][key] = { name: ing.name, qty: 0, unit: ing.unit };
         }
+        grouped[ing.aisle][key].qty += ing.qty;
+      });
+    });
 
-        function getPortionsForDish(id) {
-            return dishPortions[id] || globalPortions;
-        }
+    return grouped;
+  }
 
-        function setGlobalPortions(delta) {
-            globalPortions = Math.max(1, Math.min(6, globalPortions + delta));
-            Object.keys(dishPortions).forEach(k => delete dishPortions[k]);
-            document.getElementById('global-portions-display').textContent =
-                globalPortions === 1 ? '1 barquette' : `${globalPortions} barquettes`;
-            renderRecipesList();
-        }
+  function renderShoppingList() {
+    const weekNum = document.getElementById("shopWeekSelect").value;
+    const grouped = getShoppingByWeek(weekNum);
+    const container = document.getElementById("shoppingContainer");
 
-        function changeDishPortions(id, delta) {
-            const current = getPortionsForDish(id);
-            const next = Math.max(1, Math.min(6, current + delta));
-            dishPortions[id] = next;
-            renderRecipesList();
-        }
+    container.innerHTML = Object.entries(grouped).map(([aisle, itemsObj]) => {
+      const items = Object.values(itemsObj);
+      return `
+        <div class="aisle-card">
+          <h3>${aisle}</h3>
+          ${items.map(item => {
+            const id = `w${weekNum}_${item.name}`;
+            const isChecked = !!checkedItems[id];
+            return `
+              <label class="shop-item ${isChecked ? "checked" : ""}">
+                <input type="checkbox" ${isChecked ? "checked" : ""} onchange="toggleShopItem('${id.replace(/'/g, "\\'")}', this)" />
+                <span>${item.name}</span>
+                <span class="shop-qty">${item.qty} ${item.unit}</span>
+              </label>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }).join("");
+  }
 
-        // ==================== NAVIGATION & FILTRES ====================
-        function switchMainTab(tabName) {
-            ['recipes', 'shopping', 'plan'].forEach(t => {
-                const viewEl = document.getElementById(`view-${t}`);
-                const btnEl = document.getElementById(`tab-${t}`);
-                if (t === tabName) {
-                    viewEl.classList.remove('hidden');
-                    btnEl.classList.remove('bg-slate-800', 'text-slate-300', 'hover:bg-slate-700', 'hover:text-white');
-                    btnEl.classList.add('bg-terracotta', 'text-white', 'shadow-sm');
-                } else {
-                    viewEl.classList.add('hidden');
-                    btnEl.classList.add('bg-slate-800', 'text-slate-300', 'hover:bg-slate-700', 'hover:text-white');
-                    btnEl.classList.remove('bg-terracotta', 'text-white', 'shadow-sm');
-                }
-            });
-        }
+  function toggleShopItem(id, checkbox) {
+    checkedItems[id] = checkbox.checked;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedItems));
+    checkbox.closest(".shop-item").classList.toggle("checked", checkbox.checked);
+  }
 
-        function filterRecipes(week) {
-            currentWeekFilter = week;
-            document.querySelectorAll('.week-filter-btn').forEach(btn => {
-                const btnWeek = btn.getAttribute('data-week');
-                if (String(btnWeek) === String(week)) {
-                    btn.classList.remove('bg-sand', 'text-slateDark', 'hover:bg-stone-300/70');
-                    btn.classList.add('bg-slateDark', 'text-white');
-                } else {
-                    btn.classList.add('bg-sand', 'text-slateDark', 'hover:bg-stone-300/70');
-                    btn.classList.remove('bg-slateDark', 'text-white');
-                }
-            });
-            renderRecipesList();
-        }
+  document.getElementById("shopWeekSelect").addEventListener("change", renderShoppingList);
 
-        // ==================== RENDU DES PANNEAUX 2 COLONNES ====================
-        function renderRecipesList() {
-            const container = document.getElementById('recipes-list');
-            const filtered = currentWeekFilter === 'all'
-                ? RECIPES
-                : RECIPES.filter(r => r.week === currentWeekFilter);
+  document.getElementById("resetShopBtn").addEventListener("click", () => {
+    const weekNum = document.getElementById("shopWeekSelect").value;
+    Object.keys(checkedItems).forEach(k => {
+      if (k.startsWith(`w${weekNum}_`)) delete checkedItems[k];
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedItems));
+    renderShoppingList();
+  });
 
-            container.innerHTML = filtered.map(recipe => {
-                const portions = getPortionsForDish(recipe.id);
-                const ingredientsHtml = recipe.ingredients.map(ing => {
-                    const raw = ing.amount * portions;
-                    const formatted = Number.isInteger(raw) ? raw : raw.toFixed(1);
-                    return `
-                        <li class="flex items-center justify-between gap-2 text-xs py-1 border-b border-stone-200/60 last:border-none">
-                            <span class="text-slate-700">${ing.name}</span>
-                            <span class="font-bold text-slateDark shrink-0">${formatted} ${ing.unit}</span>
-                        </li>
-                    `;
-                }).join('');
+  document.getElementById("copyShopBtn").addEventListener("click", () => {
+    const weekNum = document.getElementById("shopWeekSelect").value;
+    const grouped = getShoppingByWeek(weekNum);
+    let text = `🛒 LISTE DE COURSES BATCH COOKING — SEMAINE ${weekNum} (5 barquettes)\n\n`;
+    Object.entries(grouped).forEach(([aisle, itemsObj]) => {
+      text += `=== ${aisle.toUpperCase()} ===\n`;
+      Object.values(itemsObj).forEach(it => {
+        text += `- ${it.name} : ${it.qty} ${it.unit}\n`;
+      });
+      text += "\n";
+    });
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById("copyShopBtn");
+      btn.textContent = "✅ Liste copiée !";
+      setTimeout(() => (btn.textContent = "📋 Copier la liste"), 2000);
+    });
+  });
 
-                const stepsHtml = recipe.steps.map(s => `
-                    <li class="text-xs text-slate-700 leading-relaxed pl-1">${s}</li>
-                `).join('');
+  // Navigation onglets & filtres semaine
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
 
-                return `
-                    <article class="bg-white rounded-3xl overflow-hidden shadow-sm border border-stone-200/85 hover:shadow-md transition-shadow grid grid-cols-1 lg:grid-cols-12 group">
-                        <!-- COLONNE GAUCHE : PHOTOGRAPHIE RÉALISTE DE LA BARQUETTE -->
-                        <div onclick="openRecipeModal(${recipe.id})" class="lg:col-span-5 relative min-h-[250px] sm:min-h-[290px] lg:min-h-full overflow-hidden cursor-pointer">
-                            ${buildPhotoViewportHTML(recipe, false)}
-                        </div>
+      const target = btn.dataset.tab;
+      document.querySelectorAll(".section-panel").forEach(p => p.classList.remove("active"));
+      document.getElementById(`tab-${target}`).classList.add("active");
 
-                        <!-- COLONNE DROITE : RECETTE COMPLÈTE, MACROS & INGRÉDIENTS AJUSTABLES -->
-                        <div class="lg:col-span-7 p-5 sm:p-6 flex flex-col justify-between space-y-4">
-                            <div>
-                                <!-- Titre & Temps -->
-                                <div class="flex flex-wrap items-start justify-between gap-2">
-                                    <div>
-                                        <div class="flex items-center gap-2 text-xs text-slate-500 font-semibold mb-1">
-                                            <span>⏱ Préparation : ${recipe.prepTime}</span>
-                                            <span>•</span>
-                                            <span class="text-sage">❄️ Congelable</span>
-                                        </div>
-                                        <h3 onclick="openRecipeModal(${recipe.id})" class="text-lg sm:text-xl font-extrabold text-slateDark hover:text-terracotta cursor-pointer transition-colors">
-                                            ${recipe.title}
-                                        </h3>
-                                    </div>
+      document.getElementById("weekFilterBar").style.display = target === "recipes" ? "flex" : "none";
+    });
+  });
 
-                                    <!-- Sélecteur de portions individuel -->
-                                    <div class="inline-flex items-center gap-1.5 bg-sand/80 px-2.5 py-1.5 rounded-xl border border-stone-200">
-                                        <button type="button" onclick="changeDishPortions(${recipe.id}, -1)" class="w-6 h-6 rounded-lg bg-white border border-stone-300 font-bold text-slateDark hover:bg-stone-100 text-xs">-</button>
-                                        <span class="text-xs font-extrabold text-slateDark w-20 text-center">${portions === 1 ? '1 barquette' : portions + ' barquettes'}</span>
-                                        <button type="button" onclick="changeDishPortions(${recipe.id}, 1)" class="w-6 h-6 rounded-lg bg-white border border-stone-300 font-bold text-slateDark hover:bg-stone-100 text-xs">+</button>
-                                    </div>
-                                </div>
+  document.querySelectorAll(".pill-filter").forEach(pill => {
+    pill.addEventListener("click", () => {
+      document.querySelectorAll(".pill-filter").forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      currentWeekFilter = pill.dataset.week;
+      renderRecipes();
+    });
+  });
 
-                                <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
-                                    ${recipe.subtitle}
-                                </p>
-
-                                <!-- Barre Nutritionnelle -->
-                                <div class="grid grid-cols-4 gap-2 bg-cream p-2.5 rounded-2xl border border-stone-200/70 text-center mt-3.5">
-                                    <div>
-                                        <span class="text-[10px] uppercase tracking-wider text-slate-500 block">Énergie</span>
-                                        <span class="text-sm font-extrabold text-terracotta">${recipe.kcal} kcal</span>
-                                    </div>
-                                    <div class="border-l border-stone-200">
-                                        <span class="text-[10px] uppercase tracking-wider text-slate-500 block">Protéines</span>
-                                        <span class="text-sm font-extrabold text-slateDark">${recipe.macros.p} g</span>
-                                    </div>
-                                    <div class="border-l border-stone-200">
-                                        <span class="text-[10px] uppercase tracking-wider text-slate-500 block">Glucides</span>
-                                        <span class="text-sm font-extrabold text-slateDark">${recipe.macros.g} g</span>
-                                    </div>
-                                    <div class="border-l border-stone-200">
-                                        <span class="text-[10px] uppercase tracking-wider text-slate-500 block">Lipides</span>
-                                        <span class="text-sm font-extrabold text-slateDark">${recipe.macros.l} g</span>
-                                    </div>
-                                </div>
-
-                                <!-- Ingrédients & Étapes côte à côte -->
-                                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mt-4">
-                                    <div class="md:col-span-5 bg-stone-50/90 p-3.5 rounded-2xl border border-stone-200/70">
-                                        <h4 class="text-[11px] font-bold uppercase tracking-wider text-slateDark mb-2">🛒 Ingrédients</h4>
-                                        <ul class="space-y-0.5">${ingredientsHtml}</ul>
-                                    </div>
-                                    <div class="md:col-span-7 space-y-2">
-                                        <h4 class="text-[11px] font-bold uppercase tracking-wider text-slateDark">👨‍🍳 Préparation rapide</h4>
-                                        <ol class="list-decimal list-inside space-y-1.5">${stepsHtml}</ol>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Astuce micro-ondes -->
-                            <div class="bg-sageLight px-3.5 py-2.5 rounded-xl border border-sage/20 flex items-start gap-2">
-                                <span class="text-sm shrink-0">💡</span>
-                                <p class="text-xs text-slate-700 leading-relaxed">
-                                    <strong class="text-sage">Astuce micro-ondes bureau :</strong> ${recipe.tip}
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                `;
-            }).join('');
-        }
-
-        // ==================== MODALE FICHE DÉTAILLÉE & CALCULATEUR ====================
-        function openRecipeModal(id) {
-            activeModalRecipe = RECIPES.find(r => r.id === id);
-            if (!activeModalRecipe) return;
-            activeModalPortions = getPortionsForDish(id);
-
-            document.getElementById('modal-photo-container').innerHTML = buildPhotoViewportHTML(activeModalRecipe, true);
-            document.getElementById('modal-week-badge').textContent = `Semaine ${activeModalRecipe.week} • Plat #${activeModalRecipe.id} • ${activeModalRecipe.prepTime}`;
-            document.getElementById('modal-title').textContent = activeModalRecipe.title;
-            document.getElementById('modal-subtitle').textContent = activeModalRecipe.subtitle;
-
-            renderModalNutritionAndIngredients();
-
-            document.getElementById('modal-steps').innerHTML = activeModalRecipe.steps.map(s => `
-                <li class="leading-relaxed pl-1">${s}</li>
-            `).join('');
-
-            document.getElementById('modal-tip').textContent = activeModalRecipe.tip;
-
-            document.getElementById('recipe-modal').classList.remove('hidden');
-            document.body.classList.add('overflow-hidden');
-        }
-
-        function changeModalPortions(delta) {
-            if (!activeModalRecipe) return;
-            activeModalPortions = Math.max(1, Math.min(6, activeModalPortions + delta));
-            dishPortions[activeModalRecipe.id] = activeModalPortions;
-            renderModalNutritionAndIngredients();
-            renderRecipesList();
-        }
-
-        function renderModalNutritionAndIngredients() {
-            if (!activeModalRecipe) return;
-            document.getElementById('modal-portions-label').textContent =
-                activeModalPortions === 1 ? '1 barquette' : `${activeModalPortions} barquettes`;
-
-            document.getElementById('modal-macro-kcal').textContent = `${activeModalRecipe.kcal * activeModalPortions} kcal`;
-            document.getElementById('modal-macro-p').textContent = `${activeModalRecipe.macros.p * activeModalPortions} g`;
-            document.getElementById('modal-macro-g').textContent = `${activeModalRecipe.macros.g * activeModalPortions} g`;
-            document.getElementById('modal-macro-l').textContent = `${activeModalRecipe.macros.l * activeModalPortions} g`;
-
-            document.getElementById('modal-ingredients').innerHTML = activeModalRecipe.ingredients.map(ing => {
-                const raw = ing.amount * activeModalPortions;
-                const formatted = Number.isInteger(raw) ? raw : raw.toFixed(1);
-                return `
-                    <li class="flex items-center justify-between gap-2 border-b border-stone-200/60 pb-1 last:border-none">
-                        <span>${ing.name}</span>
-                        <span class="font-bold text-slateDark shrink-0">${formatted} ${ing.unit}</span>
-                    </li>
-                `;
-            }).join('');
-        }
-
-        function closeModal() {
-            document.getElementById('recipe-modal').classList.add('hidden');
-            document.body.classList.remove('overflow-hidden');
-            activeModalRecipe = null;
-        }
-
-        function closeModalOnBackdrop(event) {
-            if (event.target.id === 'recipe-modal') {
-                closeModal();
-            }
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && activeModalRecipe) {
-                closeModal();
-            }
-        });
-
-        // ==================== LISTE DE COURSES ====================
-        function selectShoppingWeek(week) {
-            currentShoppingWeek = week;
-            [1, 2, 3].forEach(w => {
-                const btn = document.getElementById(`shop-week-${w}`);
-                if (w === week) {
-                    btn.classList.add('bg-terracotta', 'text-white', 'shadow-sm');
-                    btn.classList.remove('text-slateDark', 'hover:bg-white/60');
-                } else {
-                    btn.classList.remove('bg-terracotta', 'text-white', 'shadow-sm');
-                    btn.classList.add('text-slateDark', 'hover:bg-white/60');
-                }
-            });
-            renderShoppingList();
-        }
-
-        function renderShoppingList() {
-            const container = document.getElementById('shopping-list-container');
-            const categories = SHOPPING_LISTS[currentShoppingWeek];
-            let totalCount = 0;
-            let checkedCount = 0;
-
-            container.innerHTML = Object.entries(categories).map(([catName, items], catIdx) => {
-                const itemsHtml = items.map((itemText, itemIdx) => {
-                    const key = `w${currentShoppingWeek}_c${catIdx}_i${itemIdx}`;
-                    const isChecked = !!checkedItems[key];
-                    totalCount++;
-                    if (isChecked) checkedCount++;
-
-                    return `
-                        <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-cream cursor-pointer transition-colors select-none">
-                            <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleShoppingItem('${key}')" class="checkbox-custom w-4 h-4 rounded border-stone-300 text-terracotta focus:ring-terracotta">
-                            <span class="text-sm text-slate-700 transition-colors">${itemText}</span>
-                        </label>
-                    `;
-                }).join('');
-
-                return `
-                    <div class="bg-stone-50/80 p-4 rounded-2xl border border-stone-200/70">
-                        <h3 class="font-bold text-slateDark text-sm uppercase tracking-wider pb-2.5 mb-2 border-b border-stone-200/80">
-                            ${catName}
-                        </h3>
-                        <div class="space-y-1">
-                            ${itemsHtml}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            document.getElementById('shopping-count').textContent = `${checkedCount} / ${totalCount} cochés`;
-        }
-
-        function toggleShoppingItem(key) {
-            checkedItems[key] = !checkedItems[key];
-            saveCheckedState();
-            renderShoppingList();
-        }
-
-        function resetShoppingList() {
-            const prefix = `w${currentShoppingWeek}_`;
-            Object.keys(checkedItems).forEach(k => {
-                if (k.startsWith(prefix)) delete checkedItems[k];
-            });
-            saveCheckedState();
-            renderShoppingList();
-            showToast(`Liste de la Semaine ${currentShoppingWeek} réinitialisée`);
-        }
-
-        function copyShoppingList() {
-            const categories = SHOPPING_LISTS[currentShoppingWeek];
-            let text = `🛒 LISTE DE COURSES — BATCH COOKING SEMAINE ${currentShoppingWeek}\n\n`;
-            Object.entries(categories).forEach(([cat, items]) => {
-                text += `${cat}\n`;
-                items.forEach(item => {
-                    text += `  - ${item}\n`;
-                });
-                text += `\n`;
-            });
-
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'fixed';
-            textarea.style.opacity = '0';
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand('copy');
-                showToast("Liste de courses copiée dans le presse-papiers !");
-            } catch (err) {
-                showToast("Impossible de copier automatiquement.");
-            }
-            document.body.removeChild(textarea);
-        }
-
-        // ==================== PLAN DU DIMANCHE ====================
-        function selectPlanWeek(week) {
-            currentPlanWeek = week;
-            [1, 2, 3].forEach(w => {
-                const btn = document.getElementById(`plan-week-${w}`);
-                if (w === week) {
-                    btn.classList.add('bg-terracotta', 'text-white', 'shadow-sm');
-                    btn.classList.remove('text-slateDark', 'hover:bg-white/60');
-                } else {
-                    btn.classList.remove('bg-terracotta', 'text-white', 'shadow-sm');
-                    btn.classList.add('text-slateDark', 'hover:bg-white/60');
-                }
-            });
-            renderSundayPlan();
-        }
-
-        function renderSundayPlan() {
-            const plan = SUNDAY_PLANS[currentPlanWeek];
-            const dishesEl = document.getElementById('plan-week-dishes');
-            dishesEl.innerHTML = plan.dishes.map(d => `
-                <span class="px-3 py-1 rounded-full bg-cream border border-stone-200 text-xs font-semibold text-slateDark">${d}</span>
-            `).join('') + `<span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">⏱ Total : ${plan.totalTime}</span>`;
-
-            const timelineEl = document.getElementById('plan-timeline');
-            timelineEl.innerHTML = plan.steps.map((step, idx) => `
-                <div class="relative flex items-start gap-4 sm:gap-6 pl-10 md:pl-0">
-                    <div class="absolute left-3 md:left-1/2 md:-translate-x-1/2 top-1.5 w-4 h-4 rounded-full bg-terracotta border-4 border-white shadow"></div>
-                    <div class="w-full md:w-[46%] ${idx % 2 === 0 ? 'md:mr-auto md:text-right' : 'md:ml-auto'} bg-cream p-4 rounded-2xl border border-stone-200/80 shadow-sm">
-                        <div class="flex flex-wrap items-center gap-2 ${idx % 2 === 0 ? 'md:justify-end' : ''} mb-1.5">
-                            <span class="px-2.5 py-0.5 rounded-md bg-slateDark text-white text-xs font-bold">${step.time}</span>
-                            <span class="px-2.5 py-0.5 rounded-md bg-terracotta/15 text-terracottaDark text-xs font-semibold">${step.badge}</span>
-                        </div>
-                        <h4 class="font-bold text-slateDark text-sm sm:text-base">${step.title}</h4>
-                        <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">${step.desc}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ==================== NOTIFICATION TOAST ====================
-        let toastTimeout = null;
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').textContent = message;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            if (toastTimeout) clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
-        }
-
-        // ==================== INITIALISATION IMMÉDIATE ====================
-        window.addEventListener('DOMContentLoaded', () => {
-            renderRecipesList();
-            renderShoppingList();
-            renderSundayPlan();
-        });
-    </script>
+  // Initialisation immédiate
+  renderRecipes();
+  renderShoppingList();
+  sliceRealGridPhotos();
+</script>
 </body>
 </html>
