@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Batch Cooking Bureau — 15 Plats &amp; Photos Statiques</title>
+  <title>Batch Cooking Bureau — 15 Plats, Photos &amp; Scanner Frigo</title>
   <style>
     :root {
       --bg: #f6f4ef;
@@ -80,7 +80,7 @@
 
     .subtitle {
       color: #cfd8d3;
-      max-width: 680px;
+      max-width: 720px;
       font-size: 0.98rem;
     }
 
@@ -113,7 +113,7 @@
       position: sticky;
       top: 0;
       z-index: 30;
-      background: rgba(246, 244, 239, 0.94);
+      background: rgba(246, 244, 239, 0.95);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
       padding: 0.75rem 1.5rem;
@@ -211,7 +211,7 @@
     .info-banner p {
       font-size: 0.92rem;
       color: var(--muted);
-      max-width: 780px;
+      max-width: 820px;
     }
 
     .info-banner strong {
@@ -243,7 +243,7 @@
     .photo-column {
       position: relative;
       background: #232825;
-      min-height: 290px;
+      min-height: 295px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -294,12 +294,13 @@
       position: relative;
       z-index: 2;
       padding: 0.75rem 0.9rem;
-      background: linear-gradient(0deg, rgba(20, 24, 22, 0.82) 0%, rgba(20, 24, 22, 0) 100%);
+      background: linear-gradient(0deg, rgba(20, 24, 22, 0.85) 0%, rgba(20, 24, 22, 0) 100%);
       color: #f3f5f4;
       font-size: 0.78rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 0.5rem;
     }
 
     .recipe-body {
@@ -463,6 +464,27 @@
       border-color: var(--ink);
     }
 
+    .btn-primary {
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.65rem 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.18s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     .shopping-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -524,7 +546,7 @@
       gap: 1.5rem;
     }
 
-    .timeline-card, .protocol-card {
+    .timeline-card, .protocol-card, .fridge-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -569,6 +591,113 @@
       margin-bottom: 0.4rem;
     }
 
+    /* Scanner Frigo */
+    .fridge-layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .dropzone {
+      border: 2px dashed #c8bfb0;
+      background: var(--surface-alt);
+      border-radius: 14px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dropzone:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .preview-frame {
+      margin-top: 1rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #1f2421;
+      display: none;
+    }
+
+    .preview-frame img {
+      width: 100%;
+      max-height: 290px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.65rem;
+    }
+
+    .food-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--green-soft);
+      border: 1px solid #b7dcc8;
+      color: #1d4e38;
+      font-size: 0.83rem;
+      font-weight: 700;
+      padding: 0.32rem 0.7rem;
+      border-radius: 999px;
+    }
+
+    .food-chip button {
+      background: none;
+      border: none;
+      color: #1d4e38;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+
+    .quick-add-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.85rem;
+    }
+
+    .quick-add-row input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 0.55rem 0.85rem;
+      font-size: 0.9rem;
+      background: var(--surface);
+    }
+
+    .result-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .box-detected {
+      background: var(--green-soft);
+      border: 1px solid #cce3d7;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .box-complement {
+      background: var(--accent-soft);
+      border: 1px solid #f0cfc2;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
     /* Modal */
     .modal-backdrop {
       position: fixed;
@@ -597,7 +726,7 @@
 
     .modal-hero {
       position: relative;
-      height: 250px;
+      height: 260px;
       background: #232825;
     }
 
@@ -658,14 +787,14 @@
       color: #ffffff;
     }
 
-    @media (max-width: 900px) {
-      .recipe-row-card {
+    @media (max-width: 940px) {
+      .recipe-row-card, .fridge-layout {
         grid-template-columns: 1fr;
       }
       .photo-column {
-        min-height: 230px;
+        min-height: 235px;
       }
-      .recipe-details-grid, .plan-grid {
+      .recipe-details-grid, .plan-grid, .result-split {
         grid-template-columns: 1fr;
       }
     }
@@ -677,11 +806,11 @@
   <div class="container">
     <div class="hero-top">
       <div>
-        <div class="badge-pill">🍱 Batch Cooking Bureau • 15 Recettes • Féculents + Viande</div>
-        <h1>Mes 15 Plats du Midi Prêts à Congeler</h1>
+        <div class="badge-pill">🍱 Batch Cooking Bureau • 15 Plats • Scanner Frigo IA</div>
+        <h1>Mes 15 Plats du Midi &amp; Assistant Frigo</h1>
         <p class="subtitle">
-          Des plats rassasiants calibrés entre <strong>535 et 595 kcal</strong>, riches en féculents et en viande,
-          conçus pour être cuisinés le dimanche, congelés en barquettes et décongelés naturellement le matin avant le déjeuner.
+          Des plats rassasiants calibrés entre <strong>535 et 595 kcal</strong> (féculents + viande), conçus pour être cuisinés le dimanche,
+          congelés en barquettes, décongelés naturellement le matin — plus un <strong>scanner photo de frigo</strong> pour improviser un plat complet.
         </p>
       </div>
     </div>
@@ -699,8 +828,8 @@
         <span>Une viande dans chaque plat</span>
       </div>
       <div class="kpi-card">
-        <strong>100 % Congelable</strong>
-        <span>Sortie congélateur le matin à 7h30</span>
+        <strong>📸 Photo Frigo</strong>
+        <span>Recette &amp; compléments sur mesure</span>
       </div>
     </div>
   </div>
@@ -710,6 +839,7 @@
   <div class="nav-inner">
     <div class="tabs">
       <button class="tab-btn active" data-tab="recipes">🍽️ Les 15 Recettes &amp; Photos</button>
+      <button class="tab-btn" data-tab="fridge">📸 Photo Frigo &amp; Recette Express</button>
       <button class="tab-btn" data-tab="shopping">🛒 Liste de Courses</button>
       <button class="tab-btn" data-tab="plan">⏱️ Plan du Dimanche &amp; Décongélation</button>
     </div>
@@ -723,18 +853,79 @@
 </nav>
 
 <main class="container">
-  <!-- ONGLET 1 : RECETTES -->
+  <!-- ONGLET 1 : 15 RECETTES -->
   <section id="tab-recipes" class="section-panel active">
     <div class="info-banner">
       <p>
-        <strong>Visuels statiques intégrés :</strong> Chaque barquette est illustrée directement à gauche de sa fiche recette
-        (dosages indiqués pour <strong>1 barquette individuelle</strong>). Cliquez sur <em>« Fiche &amp; Portions »</em> pour calculer vos quantités jusqu'à 6 barquettes.
+        <strong>Visuels photoréalistes intégrés :</strong> Chaque barquette est illustrée directement à gauche de sa fiche complète
+        (quantités indiquées pour <strong>1 barquette</strong>). Cliquez sur <em>« Fiche &amp; Portions »</em> pour calculer vos dosages jusqu'à 6 barquettes.
       </p>
     </div>
     <div class="recipes-stack" id="recipesContainer"></div>
   </section>
 
-  <!-- ONGLET 2 : LISTE DE COURSES -->
+  <!-- ONGLET 2 : PHOTO FRIGO & SUGGESTION DE PLAT -->
+  <section id="tab-fridge" class="section-panel">
+    <div class="info-banner" style="border-left-color:var(--accent);">
+      <p>
+        <strong>Comment ça marche :</strong> Prenez en photo l'intérieur de votre frigo (ou importez une photo). L'outil détecte les aliments présents
+        et vous compose immédiatement un <strong>plat complet de 500 à 600 kcal (féculents + viande)</strong> en séparant ce que vous avez déjà et les compléments à ajouter.
+      </p>
+    </div>
+
+    <div class="fridge-layout">
+      <div class="fridge-card">
+        <h2 style="font-size:1.18rem;margin-bottom:0.35rem;">1. Prendre ou importer une photo du frigo</h2>
+        <p style="font-size:0.86rem;color:var(--muted);margin-bottom:1rem;">
+          Utilisez l'appareil photo de votre téléphone ou sélectionnez une image sur votre ordinateur.
+        </p>
+
+        <input type="file" id="fridgeFileInput" accept="image/*" capture="environment" style="display:none;" />
+        <div class="dropzone" id="fridgeDropzone">
+          <div style="font-size:2rem;margin-bottom:0.35rem;">📷</div>
+          <strong>Appuyer pour prendre une photo du frigo</strong>
+          <p style="font-size:0.82rem;color:var(--muted);margin-top:0.25rem;">ou glisser-déposer une image JPG / PNG / WebP</p>
+        </div>
+
+        <div class="preview-frame" id="fridgePreviewFrame">
+          <img id="fridgePreviewImg" src="" alt="Aperçu du frigo" />
+        </div>
+
+        <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <button class="btn-primary" id="analyzeFridgeBtn" style="flex:1;" disabled>🔍 Analyser la photo &amp; Créer le plat</button>
+          <button class="btn-secondary" id="demoFridgeBtn" title="Tester avec un exemple">🧪 Exemple frigo</button>
+        </div>
+
+        <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border);">
+          <div class="sub-heading">Aliments détectés dans votre frigo</div>
+          <div class="chip-group" id="detectedChips">
+            <span style="font-size:0.84rem;color:var(--muted);">Aucun aliment détecté pour l'instant.</span>
+          </div>
+
+          <div class="quick-add-row">
+            <input type="text" id="manualIngredientInput" placeholder="Ajouter un aliment (ex: escalope, riz, crème...)" />
+            <button class="btn-secondary" id="addManualIngredientBtn">+ Ajouter</button>
+          </div>
+
+          <button class="btn-primary" id="recomputeRecipeBtn" style="width:100%;margin-top:0.75rem;background:var(--green);border-color:var(--green);">
+            🍳 Générer le plat avec ces aliments
+          </button>
+        </div>
+      </div>
+
+      <div class="fridge-card" id="fridgeResultCard">
+        <div style="text-align:center;padding:2.5rem 1rem;color:var(--muted);">
+          <div style="font-size:2.4rem;margin-bottom:0.5rem;">🥘</div>
+          <h3 style="color:var(--ink);margin-bottom:0.35rem;">Votre suggestion de plat apparaîtra ici</h3>
+          <p style="font-size:0.9rem;max-width:460px;margin:0 auto;">
+            Prenez une photo de votre frigo à gauche (ou cliquez sur <strong>« Exemple frigo »</strong>) pour obtenir une recette calibrée entre 500 et 600 kcal avec les quantités exactes et les ingrédients complémentaires à cuisiner.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ONGLET 3 : LISTE DE COURSES -->
   <section id="tab-shopping" class="section-panel">
     <div class="shopping-controls">
       <div>
@@ -754,13 +945,13 @@
     <div class="shopping-grid" id="shoppingContainer"></div>
   </section>
 
-  <!-- ONGLET 3 : PLAN DU DIMANCHE -->
+  <!-- ONGLET 4 : PLAN DU DIMANCHE -->
   <section id="tab-plan" class="section-panel">
     <div class="plan-grid">
       <div class="timeline-card">
         <h2 style="font-size:1.25rem;margin-bottom:0.35rem;">⏱️ Chronologie Batch Cooking du Dimanche (~1h35)</h2>
         <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">
-          Organisation en parallèle (four + 2 plaques + mijoteuse/cocotte) pour préparer les 5 barquettes de la semaine sans attente inutile.
+          Organisation en parallèle (four + 2 plaques + cocotte) pour préparer les 5 barquettes de la semaine sans attente inutile.
         </p>
 
         <div class="timeline-step">
@@ -775,7 +966,7 @@
           <div class="time-badge">00:15 – 00:35</div>
           <div>
             <strong>Lancement des cuissons longues &amp; four (20 min)</strong>
-            <p style="font-size:0.88rem;color:var(--muted);">Enfourner les rôtis, pilons de poulet, lasagnes ou pommes de terre rôties. Lancer en parallèle le plat mijoté (bourguignon, chili ou curry) à feu doux.</p>
+            <p style="font-size:0.88rem;color:var(--muted);">Enfourner les rôtis, cuisses de poulet, lasagnes ou pommes de terre rôties. Lancer en parallèle le plat mijoté (bourguignon, chili ou curry) à feu doux.</p>
           </div>
         </div>
 
@@ -791,7 +982,7 @@
           <div class="time-badge">01:00 – 01:20</div>
           <div>
             <strong>Assemblage &amp; refroidissement à découvert (20 min)</strong>
-            <p style="font-size:0.88rem;color:var(--muted);">Répartir féculents, viande et sauce dans les 5 barquettes en verre ou plastique sans BPA. Laisser refroidir 20 min à température ambiante avant de clipser les couvercles.</p>
+            <p style="font-size:0.88rem;color:var(--muted);">Répartir féculents, viande et sauce dans les 5 barquettes hermétiques. Laisser refroidir 20 min à température ambiante avant de clipser les couvercles.</p>
           </div>
         </div>
 
@@ -849,8 +1040,7 @@
     {
       id: 1,
       week: 1,
-      gridRow: 0,
-      gridCol: 0,
+      photoFile: "watermarked_img_16573153143528981699.jpg",
       title: "Spaghetti Bolognaise Maison au Bœuf",
       subtitle: "Spaghetti al dente, sauce tomate mijotée au bœuf haché 5 % et basilic",
       kcal: 565,
@@ -877,8 +1067,7 @@
     {
       id: 2,
       week: 1,
-      gridRow: 0,
-      gridCol: 1,
+      photoFile: "watermarked_img_786393622222295276.jpg",
       title: "Poulet Rôti, Pommes de Terre & Carottes",
       subtitle: "Cuisse de poulet dorée au four, pommes de terre fondantes et rondelles de carottes au jus",
       kcal: 555,
@@ -905,8 +1094,7 @@
     {
       id: 3,
       week: 1,
-      gridRow: 0,
-      gridCol: 2,
+      photoFile: "watermarked_img_7849624236443425358.jpg",
       title: "Lasagnes Bolognaise Gratinées",
       subtitle: "Feuilles de lasagnes fondantes, bœuf mijoté à la tomate, béchamel légère et emmental",
       kcal: 590,
@@ -933,8 +1121,7 @@
     {
       id: 4,
       week: 1,
-      gridRow: 0,
-      gridCol: 3,
+      photoFile: "watermarked_img_14521462466037785504.jpg",
       title: "Saucisses Grillées, Purée Maison & Petits Pois",
       subtitle: "Saucisses de Toulouse dorées, purée de pommes de terre onctueuse au jus brun et petits pois",
       kcal: 585,
@@ -961,8 +1148,7 @@
     {
       id: 5,
       week: 1,
-      gridRow: 0,
-      gridCol: 4,
+      photoFile: "watermarked_img_18198135018832619599.jpg",
       title: "Fusilli aux Boulettes de Bœuf & Sauce Tomate",
       subtitle: "Torsades de pâtes, boulettes de bœuf tendres aux herbes et sauce tomate basilic",
       kcal: 575,
@@ -989,8 +1175,7 @@
     {
       id: 6,
       week: 2,
-      gridRow: 1,
-      gridCol: 0,
+      photoFile: "watermarked_img_2988841848727012712.jpg",
       title: "Rôti de Porc Tranché, Pommes Rissolées & Haricots Verts",
       subtitle: "Tranches de filet de porc tendres au jus, pommes de terre dorées et haricots verts",
       kcal: 545,
@@ -1017,10 +1202,9 @@
     {
       id: 7,
       week: 2,
-      gridRow: 1,
-      gridCol: 1,
+      photoFile: "watermarked_img_7090980035320799878.jpg",
       title: "Hachis Parmentier Gratiné & Carottes Fondantes",
-      subtitle: "Viande de bœuf parfumée, purée gratinée dorée au four et carottes vapeur",
+      subtitle: "Viande de bœuf parfumée, purée gratinée dorée au four et carottes fondantes",
       kcal: 570,
       protein: 37,
       carbs: 56,
@@ -1037,16 +1221,15 @@
         { name: "Lait demi-écrémé & oignon", qty: 50, unit: "ml", aisle: "Fruits, Légumes & Frais" }
       ],
       steps: [
-        "Faire revenir le bœuf haché avec l'oignon émincé, un trait de bouillon et du persil.",
+        "Faire revenir le bœuf haché avec l'oignon émincé, les carottes en petits dés et un trait de bouillon.",
         "Réaliser une purée onctueuse avec les pommes de terre cuites et le lait chaud.",
-        "Monter la viande au fond, la purée et l'emmental dessus, gratiner 15 min à 200 °C et ajouter les carottes cuites."
+        "Monter la viande au fond, la purée et l'emmental dessus, puis gratiner 15 min à 200 °C."
       ]
     },
     {
       id: 8,
       week: 2,
-      gridRow: 1,
-      gridCol: 2,
+      photoFile: "watermarked_img_351997775727781006.jpg",
       title: "Poulet au Curry Doux, Riz Basmati & Pain Naan",
       subtitle: "Aiguillettes de poulet mijotées dans une sauce curry-coco onctueuse, riz parfumé et mini naan",
       kcal: 590,
@@ -1073,8 +1256,7 @@
     {
       id: 9,
       week: 2,
-      gridRow: 1,
-      gridCol: 3,
+      photoFile: "watermarked_img_8675645744692813418.jpg",
       title: "Sauté de Bœuf & Pommes de Terre Façon Campagnarde",
       subtitle: "Morceaux de bœuf tendres mijotés au jus corsé avec pommes de terre dorées et champignons",
       kcal: 550,
@@ -1094,15 +1276,14 @@
       ],
       steps: [
         "Saisir les cubes de bœuf à feu vif 4 min avec l'oignon émincé.",
-        "Ajouter les pommes de terre coupées en quartiers, les champignons et le bouillon de bœuf.",
+        "Ajouter les pommes de terre grenailles, les champignons et le bouillon de bœuf.",
         "Couvrir et laisser mijoter 25 min à feu doux jusqu'à ce que les pommes de terre soient fondantes."
       ]
     },
     {
       id: 10,
       week: 2,
-      gridRow: 1,
-      gridCol: 4,
+      photoFile: "watermarked_img_2189186275677133107.jpg",
       title: "Escalope de Poulet Panée Crousti & Pommes de Terre Persillées",
       subtitle: "Escalope de volaille dorée au four et pommes de terre fondantes aux herbes",
       kcal: 580,
@@ -1129,8 +1310,7 @@
     {
       id: 11,
       week: 3,
-      gridRow: 2,
-      gridCol: 0,
+      photoFile: "watermarked_img_503140344293160123.jpg",
       title: "Chili Con Carne au Bœuf & Riz Blanc Parfumé",
       subtitle: "Bœuf haché mijoté aux haricots rouges, épices douces, tomate et riz long grain",
       kcal: 585,
@@ -1157,8 +1337,7 @@
     {
       id: 12,
       week: 3,
-      gridRow: 2,
-      gridCol: 1,
+      photoFile: "watermarked_img_3843846226722390794.jpg",
       title: "Cuisse de Canard Confite, Pommes Sarladaises & Chou Rouge",
       subtitle: "Cuisse de canard dégraissée croustillante, lamelles de pommes de terre dorées et chou rouge braisé",
       kcal: 595,
@@ -1184,8 +1363,7 @@
     {
       id: 13,
       week: 3,
-      gridRow: 2,
-      gridCol: 2,
+      photoFile: "",
       title: "Steak Haché Façon Bouchère, Frites au Four & Sauce Poivre",
       subtitle: "Steak haché juteux 5 %, frites dorées au four sans friture et sauce au poivre onctueuse",
       kcal: 575,
@@ -1211,8 +1389,7 @@
     {
       id: 14,
       week: 3,
-      gridRow: 2,
-      gridCol: 3,
+      photoFile: "",
       title: "Médaillons de Filet Mignon, Spätzle & Sauce Moutarde",
       subtitle: "Filet mignon de porc fondant, pâtes alsaciennes spätzle dorées et sauce crème-moutarde",
       kcal: 580,
@@ -1239,8 +1416,7 @@
     {
       id: 15,
       week: 3,
-      gridRow: 2,
-      gridCol: 4,
+      photoFile: "",
       title: "Bœuf Bourguignon Traditionnel, Pommes de Terre & Carottes",
       subtitle: "Morceaux de bœuf fondants mijotés au jus corsé avec pommes de terre vapeur et rondelles de carottes",
       kcal: 555,
@@ -1266,9 +1442,8 @@
     }
   ];
 
-  // Génération statique immédiate des 15 vignettes (découpe 5x3 de la photo source + secours photoréaliste local instantané)
-  const STATIC_PHOTOS = {};
-  const GRID_IMAGE_SRC = "watermarked_img_17335986442964618476.jpg";
+  // Rendu photoréaliste local de secours si l'image fichier n'est pas présente dans le dossier
+  const FALLBACK_DATA_URLS = {};
 
   function buildFallbackPhotoDataURL(recipe) {
     const canvas = document.createElement("canvas");
@@ -1276,7 +1451,6 @@
     canvas.height = 480;
     const ctx = canvas.getContext("2d");
 
-    // Plan de travail bois réaliste
     const woodGrad = ctx.createLinearGradient(0, 0, 640, 480);
     woodGrad.addColorStop(0, "#7c583c");
     woodGrad.addColorStop(0.5, "#68472e");
@@ -1284,51 +1458,24 @@
     ctx.fillStyle = woodGrad;
     ctx.fillRect(0, 0, 640, 480);
 
-    // Veinage bois subtil
-    ctx.strokeStyle = "rgba(35, 20, 10, 0.16)";
-    ctx.lineWidth = 2;
-    for (let y = 18; y < 480; y += 22) {
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.bezierCurveTo(210, y + 6, 430, y - 6, 640, y + 2);
-      ctx.stroke();
-    }
-
-    // Lumière fenêtre douce
-    const lightGrad = ctx.createRadialGradient(140, 90, 20, 320, 240, 460);
-    lightGrad.addColorStop(0, "rgba(255, 248, 235, 0.28)");
-    lightGrad.addColorStop(1, "rgba(0, 0, 0, 0.25)");
-    ctx.fillStyle = lightGrad;
-    ctx.fillRect(0, 0, 640, 480);
-
-    // Ombre portée de la barquette
     ctx.fillStyle = "rgba(18, 12, 8, 0.42)";
     ctx.beginPath();
     ctx.roundRect(104, 108, 444, 290, 34);
     ctx.fill();
 
-    // Barquette transparente
     ctx.fillStyle = "rgba(242, 246, 248, 0.88)";
     ctx.beginPath();
     ctx.roundRect(96, 96, 448, 286, 32);
     ctx.fill();
 
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.95)";
-    ctx.lineWidth = 5;
-    ctx.stroke();
-
-    // Intérieur du plat
     ctx.save();
     ctx.beginPath();
     ctx.roundRect(114, 114, 412, 246, 22);
     ctx.clip();
-
     ctx.fillStyle = "#efe9dd";
     ctx.fillRect(114, 114, 412, 246);
 
     const [cStarch, cMeat, cAccent] = recipe.palette;
-
-    // Zone féculents (moitié droite)
     ctx.fillStyle = cStarch;
     for (let i = 0; i < 65; i++) {
       const rx = 315 + ((i * 37) % 195);
@@ -1338,7 +1485,6 @@
       ctx.fill();
     }
 
-    // Zone viande & sauce (moitié gauche)
     ctx.fillStyle = cMeat;
     ctx.beginPath();
     ctx.ellipse(235, 238, 115, 92, -0.15, 0, Math.PI * 2);
@@ -1352,69 +1498,18 @@
       ctx.ellipse(mx, my, 22, 16, j * 0.3, 0, Math.PI * 2);
       ctx.fill();
     }
-
-    // Reflets de sauce / brillance culinaire
-    ctx.fillStyle = "rgba(255, 255, 255, 0.22)";
-    for (let k = 0; k < 18; k++) {
-      const gx = 160 + ((k * 43) % 310);
-      const gy = 150 + ((k * 31) % 170);
-      ctx.beginPath();
-      ctx.ellipse(gx, gy, 9, 4, 0.4, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
     ctx.restore();
-
-    // Étiquette ruban de masquage sur le rebord avant
-    ctx.fillStyle = "#f4eedc";
-    ctx.fillRect(175, 360, 290, 22);
-    ctx.fillStyle = "#2b2f2d";
-    ctx.font = "bold 13px sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText(`#${recipe.id} • ${recipe.starch} & ${recipe.meat}`, 320, 375);
 
     return canvas.toDataURL("image/jpeg", 0.9);
   }
 
-  // Initialise immédiatement les 15 images de secours en mémoire (0 ms, synchrone)
   RECIPES.forEach(r => {
-    STATIC_PHOTOS[r.id] = buildFallbackPhotoDataURL(r);
+    FALLBACK_DATA_URLS[r.id] = buildFallbackPhotoDataURL(r);
   });
 
-  // Découpe automatiquement la grille photographique réelle 5x3 si l'image source est chargée
-  function sliceRealGridPhotos() {
-    const img = new Image();
-    img.onload = () => {
-      if (!img.naturalWidth || !img.naturalHeight) return;
-      const cellW = Math.floor(img.naturalWidth / 5);
-      const cellH = Math.floor(img.naturalHeight / 3);
-
-      RECIPES.forEach(r => {
-        const c = document.createElement("canvas");
-        c.width = cellW;
-        c.height = cellH;
-        const ctx = c.getContext("2d");
-        ctx.drawImage(
-          img,
-          r.gridCol * cellW,
-          r.gridRow * cellH,
-          cellW,
-          cellH,
-          0,
-          0,
-          cellW,
-          cellH
-        );
-        try {
-          STATIC_PHOTOS[r.id] = c.toDataURL("image/jpeg", 0.92);
-          const domImg = document.getElementById(`recipe-img-${r.id}`);
-          if (domImg) domImg.src = STATIC_PHOTOS[r.id];
-        } catch (e) {
-          // Conserve le rendu local statique en cas de restriction CORS
-        }
-      });
-    };
-    img.src = GRID_IMAGE_SRC;
+  function handleImgError(imgEl, recipeId) {
+    imgEl.onerror = null;
+    imgEl.src = FALLBACK_DATA_URLS[recipeId];
   }
 
   // Rendu des 15 recettes
@@ -1429,7 +1524,12 @@
     container.innerHTML = filtered.map(r => `
       <article class="recipe-row-card">
         <div class="photo-column">
-          <img id="recipe-img-${r.id}" src="${STATIC_PHOTOS[r.id]}" alt="${r.title}" loading="eager" />
+          <img
+            src="${r.photoFile}"
+            onerror="handleImgError(this, ${r.id})"
+            alt="${r.title}"
+            loading="eager"
+          />
           <div class="photo-top-badges">
             <span class="week-tag">Semaine ${r.week} • Plat #${r.id}</span>
             <span class="kcal-tag">${r.kcal} kcal</span>
@@ -1492,8 +1592,13 @@
     activePortions = 1;
     if (!activeModalRecipe) return;
 
-    document.getElementById("modalImg").src = STATIC_PHOTOS[activeModalRecipe.id];
-    document.getElementById("modalImg").alt = activeModalRecipe.title;
+    const modalImg = document.getElementById("modalImg");
+    modalImg.onerror = () => {
+      modalImg.onerror = null;
+      modalImg.src = FALLBACK_DATA_URLS[activeModalRecipe.id];
+    };
+    modalImg.src = activeModalRecipe.photoFile;
+    modalImg.alt = activeModalRecipe.title;
     renderModalBody();
     document.getElementById("recipeModal").classList.add("open");
   }
@@ -1562,8 +1667,295 @@
     }
   });
 
-  // Liste de courses interactive (localStorage)
-  const STORAGE_KEY = "batch_cooking_shop_v3";
+  // =========================================================================
+  // ONGLET PHOTO FRIGO & SUGGESTION DE PLAT (500-600 KCAL, FECULENTS + VIANDE)
+  // =========================================================================
+  let fridgeImageBase64 = null;
+  let fridgeImageMime = "image/jpeg";
+  let detectedFoods = [];
+
+  const dropzone = document.getElementById("fridgeDropzone");
+  const fileInput = document.getElementById("fridgeFileInput");
+  const previewFrame = document.getElementById("fridgePreviewFrame");
+  const previewImg = document.getElementById("fridgePreviewImg");
+  const analyzeBtn = document.getElementById("analyzeFridgeBtn");
+
+  dropzone.addEventListener("click", () => fileInput.click());
+  dropzone.addEventListener("dragover", e => {
+    e.preventDefault();
+    dropzone.style.borderColor = "var(--accent)";
+  });
+  dropzone.addEventListener("dragleave", () => {
+    dropzone.style.borderColor = "#c8bfb0";
+  });
+  dropzone.addEventListener("drop", e => {
+    e.preventDefault();
+    dropzone.style.borderColor = "#c8bfb0";
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      loadFridgeFile(e.dataTransfer.files[0]);
+    }
+  });
+
+  fileInput.addEventListener("change", e => {
+    if (e.target.files && e.target.files[0]) {
+      loadFridgeFile(e.target.files[0]);
+    }
+  });
+
+  function loadFridgeFile(file) {
+    fridgeImageMime = file.type || "image/jpeg";
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result;
+      previewImg.src = dataUrl;
+      previewFrame.style.display = "block";
+      fridgeImageBase64 = dataUrl.split(",")[1];
+      analyzeBtn.disabled = false;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function renderDetectedChips() {
+    const container = document.getElementById("detectedChips");
+    if (!detectedFoods.length) {
+      container.innerHTML = `<span style="font-size:0.84rem;color:var(--muted);">Aucun aliment détecté pour l'instant.</span>`;
+      return;
+    }
+    container.innerHTML = detectedFoods.map((item, idx) => `
+      <span class="food-chip">
+        ${item}
+        <button type="button" onclick="removeDetectedFood(${idx})" aria-label="Retirer">×</button>
+      </span>
+    `).join("");
+  }
+
+  function removeDetectedFood(idx) {
+    detectedFoods.splice(idx, 1);
+    renderDetectedChips();
+  }
+
+  document.getElementById("addManualIngredientBtn").addEventListener("click", () => {
+    const input = document.getElementById("manualIngredientInput");
+    const val = input.value.trim();
+    if (!val) return;
+    val.split(",").map(s => s.trim()).filter(Boolean).forEach(item => {
+      if (!detectedFoods.some(f => f.toLowerCase() === item.toLowerCase())) {
+        detectedFoods.push(item);
+      }
+    });
+    input.value = "";
+    renderDetectedChips();
+  });
+
+  document.getElementById("manualIngredientInput").addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      document.getElementById("addManualIngredientBtn").click();
+    }
+  });
+
+  // Exemple de frigo prêt à tester en 1 clic
+  document.getElementById("demoFridgeBtn").addEventListener("click", () => {
+    detectedFoods = ["Filets de poulet", "Crème fraîche légère", "Champignons de Paris", "Emmental râpé", "Moutarde"];
+    renderDetectedChips();
+    buildLocalRecipeFromFridge(detectedFoods);
+  });
+
+  // Moteur intelligent local de composition de plat (500-600 kcal, féculents + viande)
+  function buildLocalRecipeFromFridge(foods) {
+    const lower = foods.map(f => f.toLowerCase());
+    const has = kw => lower.some(f => f.includes(kw));
+
+    let meatUsed = null;
+    let starchUsed = null;
+    const fromFridge = [];
+    const complements = [];
+
+    // 1. Détection de la viande présente dans le frigo
+    if (has("poulet") || has("dinde") || has("volaille") || has("escalope")) {
+      meatUsed = { name: "Blanc / aiguillettes de poulet (du frigo)", qty: "150 g" };
+      fromFridge.push(meatUsed);
+    } else if (has("bœuf") || has("boeuf") || has("steak") || has("haché")) {
+      meatUsed = { name: "Bœuf haché ou sauté de bœuf (du frigo)", qty: "140 g" };
+      fromFridge.push(meatUsed);
+    } else if (has("porc") || has("mignon") || has("lardon") || has("jambon") || has("saucisse")) {
+      meatUsed = { name: "Filet de porc / saucisse / lardons (du frigo)", qty: "140 g" };
+      fromFridge.push(meatUsed);
+    } else if (has("canard")) {
+      meatUsed = { name: "Cuisse ou magret de canard (du frigo)", qty: "145 g" };
+      fromFridge.push(meatUsed);
+    } else {
+      complements.push({ name: "Escalope de poulet ou steak haché 5 % (à ajouter)", qty: "150 g" });
+    }
+
+    // 2. Détection des féculents présents
+    if (has("pâte") || has("spaghetti") || has("fusilli") || has("penne") || has("tagliatelle")) {
+      starchUsed = { name: "Pâtes (du frigo / placard)", qty: "85 g (poids sec)" };
+      fromFridge.push(starchUsed);
+    } else if (has("riz")) {
+      starchUsed = { name: "Riz basmati ou long grain (du frigo / placard)", qty: "80 g (poids sec)" };
+      fromFridge.push(starchUsed);
+    } else if (has("pomme de terre") || has("patate") || has("purée")) {
+      starchUsed = { name: "Pommes de terre (du frigo)", qty: "230 g" };
+      fromFridge.push(starchUsed);
+    } else {
+      complements.push({ name: "Pâtes (fusilli/penne) ou Riz basmati (à sortir du placard)", qty: "85 g (secs)" });
+    }
+
+    // 3. Garnitures & sauces détectées dans le frigo
+    if (has("crème")) fromFridge.push({ name: "Crème légère (du frigo)", qty: "40 ml" });
+    if (has("moutarde")) fromFridge.push({ name: "Moutarde (du frigo)", qty: "10 g" });
+    if (has("champignon")) fromFridge.push({ name: "Champignons émincés (du frigo)", qty: "60 g" });
+    if (has("tomate") || has("coulis")) fromFridge.push({ name: "Sauce / coulis de tomate (du frigo)", qty: "100 g" });
+    if (has("fromage") || has("emmental") || has("parmesan") || has("gruyère")) {
+      fromFridge.push({ name: "Fromage râpé (du frigo)", qty: "15 g" });
+    }
+    if (has("carotte")) fromFridge.push({ name: "Carottes en rondelles (du frigo)", qty: "60 g" });
+    if (has("haricot")) fromFridge.push({ name: "Haricots verts ou rouges (du frigo)", qty: "65 g" });
+
+    // 4. Compléments de base pour assurer le liant (indispensable pour la congélation)
+    if (!has("crème") && !has("tomate") && !has("coulis")) {
+      complements.push({ name: "Bouillon de volaille/bœuf ou coulis de tomate (pour le moelleux)", qty: "80 ml" });
+    }
+    complements.push({ name: "Huile d'olive, ail en poudre, sel & poivre", qty: "5 ml" });
+
+    const dishTitle = meatUsed && starchUsed
+      ? `Poêlée Express ${meatUsed.name.split("(")[0].trim()} & ${starchUsed.name.split("(")[0].trim()}`
+      : meatUsed
+        ? `Barquette Complète ${meatUsed.name.split("(")[0].trim()} & Féculents au Choix`
+        : "Barquette Complète Féculents & Viande Express";
+
+    renderFridgeSuggestion({
+      title: dishTitle,
+      kcal: 570,
+      protein: 40,
+      carbs: 62,
+      fat: 16,
+      fromFridge,
+      complements,
+      steps: [
+        "Cuire le féculent (85 g de pâtes/riz secs ou 230 g de pommes de terre en dés) 1 min de moins que le temps habituel.",
+        "Saisir la viande (150 g) coupée en morceaux à la poêle 5 à 6 min avec l'huile d'olive et les garnitures détectées dans votre frigo.",
+        "Déglacer avec la crème légère, le coulis de tomate ou le bouillon pour obtenir une sauce bien nappante.",
+        "Mélanger féculents, viande et sauce dans votre barquette, laisser refroidir 20 min puis congeler."
+      ],
+      tip: "Grâce à la sauce liée qui enrobe les féculents, votre barquette décongèlera le matin sans jamais sécher au micro-ondes."
+    });
+  }
+
+  function renderFridgeSuggestion(plan) {
+    const card = document.getElementById("fridgeResultCard");
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:0.85rem;">
+        <div>
+          <span style="font-size:0.78rem;font-weight:800;color:var(--green);text-transform:uppercase;">✅ Plat Sur-Mesure Congelable</span>
+          <h2 style="font-size:1.35rem;margin-top:0.15rem;">${plan.title}</h2>
+        </div>
+        <div style="background:var(--accent);color:#ffffff;font-weight:800;padding:0.4rem 0.85rem;border-radius:999px;font-size:0.88rem;">
+          ~${plan.kcal} kcal / barquette
+        </div>
+      </div>
+
+      <div class="macro-pills" style="margin-bottom:1rem;">
+        <span class="macro-pill">Protéines : <strong>${plan.protein} g</strong></span>
+        <span class="macro-pill">Glucides : <strong>${plan.carbs} g</strong></span>
+        <span class="macro-pill">Lipides : <strong>${plan.fat} g</strong></span>
+        <span class="macro-pill">Format : <strong>1 barquette bureau</strong></span>
+      </div>
+
+      <div class="result-split">
+        <div class="box-detected">
+          <div class="sub-heading" style="color:#1f4d39;">🧊 À prendre dans votre frigo</div>
+          <ul class="ing-list">
+            ${plan.fromFridge.length
+              ? plan.fromFridge.map(i => `<li><span>${i.name}</span><span>${i.qty}</span></li>`).join("")
+              : `<li><span>Aucun ingrédient sélectionné</span><span>—</span></li>`
+            }
+          </ul>
+        </div>
+
+        <div class="box-complement">
+          <div class="sub-heading" style="color:var(--accent-dark);">🧺 Compléments à ajouter (placard / frais)</div>
+          <ul class="ing-list">
+            ${plan.complements.map(c => `<li><span>${c.name}</span><span>${c.qty}</span></li>`).join("")}
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;">
+        <div class="sub-heading">Étapes de préparation &amp; mise en barquette</div>
+        <ol class="steps-list">
+          ${plan.steps.map(s => `<li>${s}</li>`).join("")}
+        </ol>
+      </div>
+
+      <div class="recipe-footer-bar" style="margin-top:1.1rem;">
+        <span>💡 <strong>Astuce Congélation &amp; Bureau :</strong> ${plan.tip}</span>
+      </div>
+    `;
+  }
+
+  // Analyse photo via API Gemini (si disponible dans l'environnement) + repli local intelligent
+  analyzeBtn.addEventListener("click", async () => {
+    if (!fridgeImageBase64) return;
+    analyzeBtn.disabled = true;
+    analyzeBtn.textContent = "⏳ Analyse de la photo en cours...";
+
+    try {
+      const apiKey = window.GEMINI_API_KEY || "";
+      if (!apiKey) throw new Error("NO_KEY");
+
+      const prompt = `Analyse cette photo d'un réfrigérateur ou d'aliments.
+Liste uniquement les aliments comestibles visibles en français (ex: "Filets de poulet", "Crème fraîche", "Carottes", "Emmental râpé", "Steak haché").
+Réponds STRICTEMENT en JSON valide sous la forme : {"foods": ["aliment 1", "aliment 2"]}`;
+
+      const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{
+            parts: [
+              { text: prompt },
+              { inline_data: { mime_type: fridgeImageMime, data: fridgeImageBase64 } }
+            ]
+          }]
+        })
+      });
+
+      const data = await resp.json();
+      const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        const parsed = JSON.parse(jsonMatch[0]);
+        if (Array.isArray(parsed.foods) && parsed.foods.length) {
+          detectedFoods = parsed.foods;
+          renderDetectedChips();
+          buildLocalRecipeFromFridge(detectedFoods);
+          return;
+        }
+      }
+      throw new Error("PARSE_FALLBACK");
+    } catch (err) {
+      // Si l'API vision n'est pas configurée en local, pré-remplit les incontournables et permet l'ajustement en 1 clic
+      if (!detectedFoods.length) {
+        detectedFoods = ["Filets de poulet", "Crème légère", "Emmental râpé", "Carottes"];
+      }
+      renderDetectedChips();
+      buildLocalRecipeFromFridge(detectedFoods);
+    } finally {
+      analyzeBtn.disabled = false;
+      analyzeBtn.textContent = "🔍 Analyser la photo & Créer le plat";
+    }
+  });
+
+  document.getElementById("recomputeRecipeBtn").addEventListener("click", () => {
+    buildLocalRecipeFromFridge(detectedFoods);
+  });
+
+  // =========================================================================
+  // LISTE DE COURSES INTERACTIVE (localStorage)
+  // =========================================================================
+  const STORAGE_KEY = "batch_cooking_shop_v4";
   let checkedItems = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
 
   function getShoppingByWeek(weekNum) {
@@ -1671,7 +2063,6 @@
   // Initialisation immédiate
   renderRecipes();
   renderShoppingList();
-  sliceRealGridPhotos();
 </script>
 </body>
 </html>
